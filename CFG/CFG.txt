@@ -1,0 +1,68 @@
+// HATI-HATI SAAT SPLIT(" ") KARENA SPASI JUGA TERMASUK TERMINAL, JANGAN HAPUS KARAKTER DEL (BESERTA SPASI APAPUN) YANG BERLEBIH DI AKHIR LINE KARENA MEMANG SENGAJA DIBUAT DEMIKIAN
+#TERMINALS
+break  const  case  catch  continue  default  delete  else  false  finally  for  function  if  let  null  return  switch  throw  try  true  var  while  (  )  {  }  [  ]  ;  =  +  -  *  /  %  <  >  &  ^  |  ?  !  a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z  A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z  .  '  "  #  $  :  @  \  _  `  €  ,  „  †  ‡  ˆ  ‰  Š  ‹  Œ  Ž  ‘ ’  “  ”  •  –  —  ˜  ™  š  ›  œ  ž  Ÿ  ¡  ¢  £  ¤  ¥  ¦  §  ¨  ©  ª  «  ¬  ®  ¯  °  ±  ²  ³  ´  µ  ¶  ·  ¸  ¹  º  »  ¼  ½  ¾  ¿  À  Á  Â  Ã  Ä  Å  Æ  Ç  È  É  Ê  Ë  Ì  Í  Ï  Ð  Ñ  Ò  Ó  Ô  Õ  Ö  ×  Ø  Ù  Ú  Û  Ü  Ý  Þ  ß  à  á  â  ã  ä  å  æ  ç  è  é  ê  ë  ì  í  Î  ï  ð  ñ  ò  ó  ô  õ  ö  ÷  ø  ù  ú  û  ü  ý  þ  ÿ           
+#VARIABLES
+
+#PRODUCTIONS
+
+ASSIGNMENT_OP -> =  + =  - =  * =  / =   % =  * * =  < < =  > > =  > > > =  & =  ^ =  | =  & & =  | | =  ? ? =
+COMPARISON_OP -> = =  ! =  = = =  ! = =  >  > =  <  < =
+BINARY_ARITHMETIC_OP -> %  -  +  * *
+UNARY_ARITHMETIC_OP -> + +  - -
+BINARY_BITWISE_OP -> &  |  ^  < <  < <  > > >
+UNARY_BITWISE_OP -> ~
+BINARY_LOGICAL_OP -> & &  | |  COMPARISON_OP
+UNARY_LOGICAL_OP -> !
+
+BINARY_OP -> ASSIGNMENT_OP  COMPARISON_OP V BINARY_ARITHMETIC_OP  BINARY_BITWISE_OP  BINARY_LOGICAL_OP
+UNARY_OP -> UNARY_ARITHMETIC_OP  UNARY_BITWISE_OP  UNARY_LOGICAL_OP
+
+SINGLE_INT -> 0  1  2  3  4  5  6  7  8  9
+INT -> SINGLE_INT  INT INT
+BIGINT -> INT n
+FLOAT -> INT . INT  INT .  . INT
+NUMBER -> INT  BIGINT  FLOAT
+
+ALPHABET -> a  b  c  d  e  f  g  h  i  j  k  l  m  n  o  p  q  r  s  t  u  v  w  x  y  z  A  B  C  D  E  F  G  H  I  J  K  L  M  N  O  P  Q  R  S  T  U  V  W  X  Y  Z
+PRINTABLE_ASCII_WITHOUT_QUOTATION_AND_FORMAT -> ALPHABET  SINGLE_INT  !  #  %  &  (  )  *  +  -  /  :  ;  <  =  >  ?  @  [  \  ]  ^  _  {  |  }  ~  €  ,  „  …  †  ‡  ˆ  ‰  Š  ‹  Œ  Ž  ‘  ’  “  ”  •  –  —  ˜  ™  š  ›  œ  ž  Ÿ  ¡  ¢  £  ¤  ¥  ¦  §  ¨  ©  ª  «  ¬  ®  ¯  °  ±  ²  ³  ´  µ  ¶  ·  ¸  ¹  º  »  ¼  ½  ¾  ¿  À  Á  Â  Ã  Ä  Å  Æ  Ç  È  É  Ê  Ë  Ì  Í  Ï  Î  Ð  Ñ  Ò  Ó  Ô  Õ  Ö  ×  Ø  Ù  Ú  Û  Ü  Ý  Þ  ß  à  á  â  ã  ä  å  æ  ç  è  é  ê  ë  ì  í  Î  ï  ð  ñ  ò  ó  ô  õ  ö  ÷  ø  ù  ú  û  ü  ý  þ  ÿ        
+
+PRINTABLE_ASCII_WITHOUT_QUOTATION -> PRINTABLE_ASCII_WITHOUT_QUOTATION_AND_FORMAT  $
+PRINTABLE_ASCII_WITHOUT_FORMAT -> PRINTABLE_ASCII_WITHOUT_QUOTATION_AND_FORMAT  "  '
+PRINTABLE_ASCII_WITHOUT_DOUBLE_QUOTATION -> PRINTABLE_ASCII_WITHOUT_QUOTATION  "  `
+PRINTABLE_ASCII_WITHOUT_SINGLE_QUOTATION -> PRINTABLE_ASCII_WITHOUT__QUOTATION  '  `
+
+ASCII_WORD_WITHOUT_DOUBLE_QUOTATION -> PRINTABLE_ASCII_WITHOUT_DOUBLE_QUOTATION  ASCII_WORD_WITHOUT_DOUBLE_QUOTATION ASCII_WORD_WITHOUT_DOUBLE_QUOTATION
+ASCII_WORD_WITHOUT_SINGLE_QUOTATION -> PRINTABLE_ASCII_WITHOUT_SINGLE_QUOTATION  ASCII_WORD_WITHOUT_SINGLE_QUOTATION ASCII_WORD_WITHOUT_SINGLE_QUOTATION
+ASCII_WORD_WITHOUT_FORMAT -> PRINTABLE_ASCII_WITHOUT_FORMAT  ASCII_WORD_WITHOUT_FORMAT ASCII_WORD_WITHOUT_FORMAT
+DOUBLE_QUOTE_STRING -> ' ASCII_WORD_WITHOUT_DOUBLE_QUOTATION '
+SINGLE_QUOTE_STRING -> " ASCII_WORD_WITHOUT_SINGLE_QUOTATION "
+FORMAT_WORD -> ASCII_WORD_WITHOUT_FORMAT  $ { VARIABLES }  FORMAT_WORD FORMAT_WORD
+FORMAT_STRING -> ` FORMAT_WORD `
+
+BOOLEAN -> true  false
+STRING -> DOUBLE_QUOTE_STRING  SINGLE_QUOTE_STRING  FORMAT_STRING
+VARIABLES_FIRST_CHAR -> ALPHABET  _
+VARIABLES_SUFIX -> NUMBER  VARIABLES_FIRST_CHAR
+VARIABLES -> VARIABLES_FIRST_CHAR  VARIABLES_FIRST_CHAR VARIABLES_SUFIX
+PARAMETER_LIST -> VARIABLES  VARIABLES , PARAMETER_LIST
+FUNC_CALL -> VARIABLES ( PARAMETER_LIST )
+OBJ_CALL -> VARIABLES  OBJ_CALL . FUNC_CALL  OBJ_CALL . VARIABLES
+PRIMITIVE -> BOOLEAN  NUMBER  STRING  ARRAY  OBJ
+DATA -> PRIMITIVE  VARIABLES  FUNC_CALL  OBJ_CALL
+
+ARRAY_LIST -> DATA  DATA , ARRAY_LIST  
+ARRAY -> [ ARRAY_LIST ]
+
+OBJ_ELMT -> VARIABLES  VARIABLES : DATA  
+OBJ -> { OBJ_ELMT }
+
+LOGICAL_EXPRESSION -> DATA  ARITHMETIC_EXPRESSION  STRING_EXPRESSION  LOGICAL_EXPRESSION BINARY_LOGICAL_OP LOGICAL_EXPRESSION  ( LOGICAL_EXPRESSION )  UNARY_LOGICAL_OP LOGICAL_EXPRESSION
+ARITHMETIC_EXPRESSION -> DATA  LOGICAL_EXPRESSION  STRING_EXPRESSION  ARITHMETIC_EXPRESSION BINARY_ARITHMETIC_OP ARITHMETIC_EXPRESSION  ARITHMETIC_EXPRESSION BINARY_BITWISE_OP ARITHMETIC_EXPRESSION  UNARY_ARITHMETIC_OP VARIABLES  VARIABLES UNARY_ARITHMETIC_OP  UNARY_BITWISE_OP ARITHMETIC_EXPRESSION  ( ARITHMETIC_EXPRESSION )
+STRING_EXPRESSION -> STRING  STRING + STRING
+EXPRESSION -> LOGICAL_EXPRESSION  ARITHMETIC_EXPRESSION  STRING_EXPRESSION
+
+ASIGNMENT -> VARIABLES ASSIGNMENT_OP EXPRESSION
+DECLARATION_KEYWORD -> const  let  var
+DECLARATION -> DECLARATION_KEYWORD VARIABLES  DECLARATION_KEYWORD VARIABLES = DATA
+STATEMENT_ACTION -> ASIGNMENT  
+STATEMENT -> STATEMENT_ACTION ; 
