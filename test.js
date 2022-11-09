@@ -1,6 +1,5 @@
-function a () {
-    return 0
-}
+(
+    a = 3
+)
 
-const b = a()
-[a()]
+console.log(a)
