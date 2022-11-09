@@ -1,5 +1,3 @@
-(
-    a = 3
-)
+function a (a , {r : G}) {
 
-console.log(a)
+}
