@@ -11,7 +11,7 @@ def Code_splitter(inputFile):
     isiFile = Read_file(inputFile)
 
     #Pisahin spasi yang ada di isi file
-    output = shlex.split(isiFile)
+    output = shlex.split(isiFile, posix=False)
     return output
     #operator yang ada
     """operators = ['=','+','*','**','/','%','++','--','+=','-=','*=','%=','**=','==','===','!=','!==','<','>','>=','<=','?','&&','||','!','&','|','~','^','<<','>>','>>>','break','default','const','delete','case','else','catch','false','continue','finally','for','function','if','let','null','return','switch','throw','try','true','var','while']
