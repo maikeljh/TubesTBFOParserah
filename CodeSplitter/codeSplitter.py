@@ -1,4 +1,4 @@
-import re
+import shlex
 
 def Read_file(inputFile) :
     f = open(inputFile, "r")
@@ -11,7 +11,7 @@ def Code_splitter(inputFile):
     isiFile = Read_file(inputFile)
 
     #Pisahin spasi yang ada di isi file
-    output = re.split(r'+',isiFile) #ganti 
+    output = shlex.split(isiFile)
     return output
     #operator yang ada
     """operators = ['=','+','*','**','/','%','++','--','+=','-=','*=','%=','**=','==','===','!=','!==','<','>','>=','<=','?','&&','||','!','&','|','~','^','<<','>>','>>>','break','default','const','delete','case','else','catch','false','continue','finally','for','function','if','let','null','return','switch','throw','try','true','var','while']
