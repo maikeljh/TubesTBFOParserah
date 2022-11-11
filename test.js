@@ -1,0 +1,1 @@
+const {a : ff, b} = 4
