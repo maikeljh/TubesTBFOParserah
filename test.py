@@ -1,2 +1,2 @@
-s = "a  b"
-print(s.split("  "))
+s = [1,2,3,4]
+print(s[1:])
