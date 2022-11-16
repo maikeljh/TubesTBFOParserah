@@ -1,4 +1,4 @@
 import codeSplitter
 
-hasil = codeSplitter.Code_splitter("./testcase/testJavaScript.txt")
+hasil = codeSplitter.Code_splitter("./testcase/testCodeSplitter.txt")
 print(hasil)

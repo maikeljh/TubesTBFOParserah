@@ -263,9 +263,49 @@ def ConvertToDict (productions):
     return dictionary
 
 
-def eliminate_terakhir(productions):#ini blm ya
-    return productions
+def ConvertToCNFStep1(productions, variables, terminals):
+    newProds = []
 
+    dictionary = {}
+    for production in productions:
+        if(production[0] in variables and len(production[1]) == 1):
+            if(production[1][0] in terminals):
+                dictionary[production[1][0]] = production[0]
+    
+    for production in productions:
+        if(production[0] in variables and len(production[1]) == 1):
+            newProds.append(production)
+        else:
+            for terminal in terminals:
+                for i in range(len(production[1])):
+                    if(terminal == production[1][i] and not terminal in dictionary):
+                        dictionary[terminal] = variablesJar.pop()
+                        newProds.append((dictionary[terminal], [terminal]))
+                        production[1][i] = dictionary[terminal]
+                    elif terminal == production[1][i]:
+                        production[1][i] = dictionary[terminal]
+            newProds.append((production[0], production[1]))
+
+    return newProds
+
+def eliminate_Unitry(productions, variables):
+    result = []
+    for production in productions:
+        panjang = len(production[1])
+        if panjang <=2:
+            result.append(production)
+        else :
+            newVar = variablesJar.pop(0)
+            variables.append(newVar+'1')
+            result.append((production[0],production[[1][0]]+[newVar+'1']))
+            i = 1
+            for i in range (1,panjang-2):
+                var, var2 = newVar+str(i), newVar+str(i+1)
+                variables.append(var2)
+                result.append((var, [production[0][i],var2]))
+            result.append((newVar+str(panjang-2),production[1][panjang-2:panjang]))
+    return result
+    
 def convertCFGtoCNY():
     terminals, variables, productions = ReadGrammer("./CFG/TEST4.txt")
     print(productions)
@@ -273,15 +313,21 @@ def convertCFGtoCNY():
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
+
     productionsFix = EliminateEpsilon(productions, variables)
     updateVariable(productionsFix, variables)
     print("nullables :", nullables)
     print("after epsilon elimination:", productionsFix)
     productionsFix = EliminateUnit(productionsFix, variables)
     print("after eliminate unit : ", productionsFix)
-    # productionsFix = eliminateUselessVariable(productionsFix,variables)
-    # productionsFix = eliminate_terakhir(productionsFix)
-    # productionsFix = ConvertToDict(productionsFix)
+
+  
+    productionsFix = eliminateUselessVariable(productionsFix,variables)
+    productionsFix = ConvertToCNFStep1(productionsFix, variables, terminals)
+    #print(*productionsFix)
+    productionsFix = ConvertToDict(productionsFix)
+    print(productionsFix)
+
     return productionsFix
 
 fix = convertCFGtoCNY()
