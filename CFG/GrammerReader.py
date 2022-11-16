@@ -10,99 +10,157 @@ variablesJar = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "I1", "J1", "K1"
 "A5", "B5", "C5", "D5", "E5", "F5", "G5", "H5", "I5", "J5", "K5", "L5", "M5", "N5", "O5", "P5", "Q5", "R5", "S5", "T5", "U5", "V5", "W5", "X5", "Y5", "Z5"]
 
 def ReadGrammer(relativePath):
-    file = open(relativePath, encoding="utf8").read()
+    try:
+        path = os.path.abspath(relativePath)
+        file = open(path, encoding="utf8").read()
 
-    productions = []
+        productions = []
 
-    terminals = file.split("#VARIABLES\n")[0].replace("#TERMINALS\n","").replace("\n", "")
-    variables = file.split("#VARIABLES\n")[1].split("#PRODUCTIONS\n")[0].replace("\n", "")
-    temp = file.split("#PRODUCTIONS")[1].split("\n")
-    temp.pop(0)
+        terminals = file.split("#VARIABLES\n")[0].replace("#TERMINALS\n","").replace("\n", "")
+        variables = file.split("#VARIABLES\n")[1].split("#PRODUCTIONS\n")[0].replace("\n", "")
+        temp = file.split("#PRODUCTIONS")[1].split("\n")
+        temp.pop(0)
 
-    for line in temp:
-        head = line.split(" -> ")[0]
-        bodyArr = line.split(" -> ")[1].split("  ")
+        for line in temp:
+            head = line.split(" -> ")[0]
+            bodyArr = line.split(" -> ")[1].split("  ")
 
-        for body in bodyArr:
-            productions.append((head, body.split(" ")))
+            for body in bodyArr:
+                productions.append((head, body.split(" ")))
 
-    terminals = terminals.split("  ")
-    variables = variables.split("  ")
+        terminals = terminals.split("  ")
+        variables = variables.split("  ")
 
-    return terminals, variables, productions
+        return terminals, variables, productions
+    
+    except:
+        print("FAILED TO READ FILE")
+        return [], [], []
 
 def IsEpsilonProd(body):
-    return (len(body) == 1 and body[0] == "")
 
-def IsNullable(currentVar, prodsDict, variables):
+    return ((len(body) == 1 and body[0] == '') or len(body) == 0)
 
+def IsEpsilonVar(currentVar, prodsDict, variables):
+    if (not(currentVar in variables)):
+        return False
+
+    prods = prodsDict[currentVar]
+    return(len(prods) == 1 and IsEpsilonProd(prods[0]))
+
+def IsNullable(currentVar, prodsDict, variables, processedVar):
+
+    if (currentVar in processedVar):
+        return False
+
+    processedVar.append(currentVar)
     # Basis untuk nullable
-    if (currentVar in nullables):
-        return True
-
-    elif (IsEpsilonProd(prodsDict[currentVar])):
-        nullables.append(currentVar)
-        return True
+    finalResult = False
     
+    if (not (currentVar in variables)):
+        finalResult = False
+
+    elif (currentVar in nullables):
+        finalResult = True
+           
     # rekurens dan basis di dalam loop
     else:
         for body in prodsDict[currentVar]:
-            res = True
+            
+            # basis epsilon
+            if (IsEpsilonProd(body)):
+                nullables.append(currentVar)
+                
+                finalResult = True
+                break
 
+            res = True
+            valid = True
+            
             for symbol in body:
                 if (symbol in variables):
-                    res = res and IsNullable(symbol, prodsDict, variables)
 
-                    if (res):
-                        nullables.append(currentVar)
+                    if (symbol != currentVar):
+                        res = res and IsNullable(symbol, prodsDict, variables, processedVar)
 
+                        if (res and not(symbol in nullables)):
+                            nullables.append(symbol)
+
+                        elif (not res):
+                            break
+                    
                     else:
-                        break
-
+                        valid = False
+                        continue
                 else:
                     res = False
                     break
             
-            if (res):
-                return True
+            if (res and valid):
+                finalResult = True
+
+            if(finalResult):
+                break
+                
+    processedVar.remove(currentVar)
+    return finalResult
+
+def GenerateFromNullable(body, prodsDict, variables):
     
-    return False
-
-def GenerateFromNullable(body):
     newBodies = []
-    for symbol in body:
+    
+    if (len(body) == 0):
+        return newBodies
 
-        newSubBodies = GenerateFromNullable(body[1:])
+    symbol = body[0]
+
+    if(len(body) > 1):
+        newSubBodies = GenerateFromNullable(body[1:], prodsDict, variables)
+        
+    
         for newBody in newSubBodies:
-            newBodies.append([symbol + newBody])
+            newBodies.append([symbol] + newBody)
 
-            if (IsNullable(symbol)):
+            if (IsNullable(symbol, prodsDict, variables, [])):
                 newBodies.append(newBody)
+        
+    else:
+        newBodies = [body]
+
+        if (IsNullable(symbol, prodsDict, variables, [])):
+            newBodies.append([])
 
     return newBodies
 
-def EliminateElipson(productions, variables):
+def EliminateEpsilon(productions, variables):
     prodsDict = ConvertToDict(productions)
     newProds = list.copy(productions)
 
     for var in variables:
         for body in prodsDict[var]:
-            newBodies = GenerateFromNullable(body)
-
+            newBodies = GenerateFromNullable(body, prodsDict, variables)
             for i in range(1, len(newBodies)):
-                newProds.append((var, newBodies[i]))
+                if(not((var, newBodies[i]) in newProds)):
+                    newProds.append((var, newBodies[i]))
 
-    for prod in productions:
-        if (IsEpsilonProd(prod[1])):
-            newProds.remove(prod)
-    
+    newProds = [prod for prod in newProds if not(IsEpsilonProd(prod[1]))]
+
+    for var in variables:
+        if (IsEpsilonVar(var, prodsDict, variables)):
+             newProds = [prod for prod in newProds if (not(var in prod[1]))]
+
     return newProds
 
+def updateVariable(newProduction, variables):
+    for var in variables:
+        if (len([(x,y) for (x,y) in newProduction if x == var]) == 0):
+            variables.remove(var)
 
 def IsUnitBody(body, variables):
     return (len(body) == 1 and (body[0] in variables))
 
 def IsUnitPairs(currentPair, prodsDict, variables):
+
     if (currentPair in unitPairs):
         return True
     
@@ -118,9 +176,6 @@ def IsUnitPairs(currentPair, prodsDict, variables):
                 if (res):
                     unitPairs.append(currentPair)
                     return True
-                else:
-                    return False
-
     
     return False
 
@@ -131,8 +186,8 @@ def EliminateUnit(productions, variables):
     for var1 in variables:
         for var2 in variables:
             if (IsUnitPairs((var1, var2), prodsDict, variables)):
-                for body in prodsDict[var1]:
-                    if(IsUnitBody(body, variables)):
+                for body in prodsDict[var2]:
+                    if(not(IsUnitBody(body, variables))):
                         newProds.append((var1, body))
 
     return newProds
@@ -238,17 +293,27 @@ def eliminate_Unitry(productions, variables):
     return result
     
 def convertCFGtoCNY():
-    terminals, variables, productions = ReadGrammer("C:/Users/michj/Desktop/Folders/Coding/TubesTBFO/TubesTBFO/CFG/CFG.txt")
+    terminals, variables, productions = ReadGrammer("./CFG/TEST.txt")
+    print(productions)
+    
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
-    productionsFix = EliminateElipson(productions, variables)
-    #productionsFix = EliminateUnit(productionsFix, variables)
+
+    productionsFix = EliminateEpsilon(productions, variables)
+    updateVariable(productionsFix, variables)
+    print("nullables :", nullables)
+    print("after epsilon elimination:", productionsFix)
+    productionsFix = EliminateUnit(productionsFix, variables)
+    print("after eliminate unit : ", productionsFix)
+
+  
     productionsFix = eliminateUselessVariable(productionsFix,variables)
     productionsFix = ConvertToCNFStep1(productionsFix, variables, terminals)
     #print(*productionsFix)
     productionsFix = ConvertToDict(productionsFix)
     print(productionsFix)
+
     return productionsFix
 
 fix = convertCFGtoCNY()
