@@ -194,19 +194,43 @@ def ConvertToDict (productions):
     return dictionary
 
 
-def eliminate_terakhir(productions):#ini blm ya
-    return productions
+def ConvertToCNFStep1(productions, variables, terminals):
+    newProds = []
 
+    dictionary = {}
+    for production in productions:
+        if(production[0] in variables and len(production[1]) == 1):
+            if(production[1][0] in terminals):
+                dictionary[production[1][0]] = production[0]
+    
+    for production in productions:
+        if(production[0] in variables and len(production[1]) == 1):
+            newProds.append(production)
+        else:
+            for terminal in terminals:
+                for i in range(len(production[1])):
+                    if(terminal == production[1][i] and not terminal in dictionary):
+                        dictionary[terminal] = variablesJar.pop()
+                        newProds.append((dictionary[terminal], [terminal]))
+                        production[1][i] = dictionary[terminal]
+                    elif terminal == production[1][i]:
+                        production[1][i] = dictionary[terminal]
+            newProds.append((production[0], production[1]))
+
+    return newProds
+    
 def convertCFGtoCNY():
     terminals, variables, productions = ReadGrammer("C:/Users/michj/Desktop/Folders/Coding/TubesTBFO/TubesTBFO/CFG/CFG.txt")
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
     productionsFix = EliminateElipson(productions, variables)
-    productionsFix = EliminateUnit(productionsFix, variables)
+    #productionsFix = EliminateUnit(productionsFix, variables)
     productionsFix = eliminateUselessVariable(productionsFix,variables)
-    productionsFix = eliminate_terakhir(productionsFix)
+    productionsFix = ConvertToCNFStep1(productionsFix, variables, terminals)
+    #print(*productionsFix)
     productionsFix = ConvertToDict(productionsFix)
+    print(productionsFix)
     return productionsFix
 
 fix = convertCFGtoCNY()
