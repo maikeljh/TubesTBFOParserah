@@ -218,6 +218,24 @@ def ConvertToCNFStep1(productions, variables, terminals):
             newProds.append((production[0], production[1]))
 
     return newProds
+
+def eliminate_Unitry(productions, variables):
+    result = []
+    for production in productions:
+        panjang = len(production[1])
+        if panjang <=2:
+            result.append(production)
+        else :
+            newVar = variablesJar.pop(0)
+            variables.append(newVar+'1')
+            result.append((production[0],production[[1][0]]+[newVar+'1']))
+            i = 1
+            for i in range (1,panjang-2):
+                var, var2 = newVar+str(i), newVar+str(i+1)
+                variables.append(var2)
+                result.append((var, [production[0][i],var2]))
+            result.append((newVar+str(panjang-2),production[1][panjang-2:panjang]))
+    return result
     
 def convertCFGtoCNY():
     terminals, variables, productions = ReadGrammer("C:/Users/michj/Desktop/Folders/Coding/TubesTBFO/TubesTBFO/CFG/CFG.txt")
