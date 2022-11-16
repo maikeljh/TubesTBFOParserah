@@ -1,30 +1,29 @@
+import os.path
+
 nullables = []
 unitPairs = []
 
 def ReadGrammer(relativePath):
-    try:
-        file = open(relativePath).read()
+    file = open(relativePath, encoding="utf8").read()
 
-        productions = []
+    productions = []
 
-        terminals = file.split("#VARIABLES\n")[0].replace("#TERMINALS\n").replace("\n", "")
-        variables = file.split("#VARIABLES\n")[1].split("#PRODUCTIONS\n")[0].replace("\n", "")
-        temp = file.split("#PRODUCTIONS")[1].split("\n")
+    terminals = file.split("#VARIABLES\n")[0].replace("#TERMINALS\n","").replace("\n", "")
+    variables = file.split("#VARIABLES\n")[1].split("#PRODUCTIONS\n")[0].replace("\n", "")
+    temp = file.split("#PRODUCTIONS")[1].split("\n")
+    temp.pop(0)
 
-        for line in temp:
-            head = line.split(" -> ")[0]
-            bodyArr = line.split(" -> ")[1].split("  ")
+    for line in temp:
+        head = line.split(" -> ")[0]
+        bodyArr = line.split(" -> ")[1].split("  ")
 
-            for body in bodyArr:
-                productions.append((head, body.split(" ")))
+        for body in bodyArr:
+            productions.append((head, body.split(" ")))
 
-        terminals = terminals.split("  ")
-        variables = variables.split("  ")
+    terminals = terminals.split("  ")
+    variables = variables.split("  ")
 
-        return terminals, variables, productions
-
-    except:
-        return [], [], []
+    return terminals, variables, productions
 
 def IsEpsilonProd(body):
     return (len(body) == 1 and body[0] == "")
@@ -129,3 +128,54 @@ def EliminateUnit(productions, variables):
                         newProds.append((var, body))
 
     return newProds
+
+def isDerivateTerminal(production, variables, productions):
+    for product in productions:
+        if(product[0] == production):
+            for item in product[1]:
+                if(item not in variables):
+                    return True
+    
+    return False
+
+
+def eliminateUselessVariable(productions, variables):
+    nonUselessVariables = []
+    tempProds = []
+    newProds = []
+
+    # STEP 1 (Append Variables that derivate terminal)
+    for var in variables:
+        for production in productions:
+            if(isDerivateTerminal(production[0], variables, productions)):
+                if(production[0] not in nonUselessVariables):
+                    nonUselessVariables.append(production[0])
+    
+    # STEP 2 (Append Variables that derivate non useless variable)
+    for var in variables:
+        for production in productions:
+            if(production[0] not in nonUselessVariables):
+                for item in production[1]:
+                    if(item in nonUselessVariables):
+                        nonUselessVariables.append(production[0])
+    
+    # STEP 3 (Append production which the left side is not a useless variable)
+    for production in productions:
+        if(production[0] in nonUselessVariables):
+            tempProds.append(production)
+
+    # STEP 4 (Pop Useless Variables on right side production)
+    for production in tempProds:
+        check = True
+        for i in range(len(production[1])):
+            if (production[1][i] in variables and production[1][i] not in nonUselessVariables):
+                check = False
+                print(production[1])
+        if(check):
+            newProds.append(production)
+
+    return newProds
+
+
+def convertCFGtoCNY():
+    terminal, variable, production = ReadGrammer("C:/Users/michj/Desktop/Folders/Coding/TubesTBFO/TubesTBFO/CFG/CFG.txt")
