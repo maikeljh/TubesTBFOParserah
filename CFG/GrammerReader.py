@@ -194,7 +194,7 @@ def ConvertToDict (productions):
     return dictionary
 
 
-def ConvertToCNFStep1(productions, variables, terminals):
+def ConvertToCNF(productions, variables, terminals):
     newProds = []
 
     dictionary = {}
@@ -202,9 +202,9 @@ def ConvertToCNFStep1(productions, variables, terminals):
         if(production[0] in variables and len(production[1]) == 1):
             if(production[1][0] in terminals):
                 dictionary[production[1][0]] = production[0]
-    
+
     for production in productions:
-        if(production[0] in variables and len(production[1]) == 1):
+        if(production[0] in variables and len(production[1]) == 1 and production not in newProds):
             newProds.append(production)
         else:
             for terminal in terminals:
@@ -215,26 +215,27 @@ def ConvertToCNFStep1(productions, variables, terminals):
                         production[1][i] = dictionary[terminal]
                     elif terminal == production[1][i]:
                         production[1][i] = dictionary[terminal]
-            newProds.append((production[0], production[1]))
+            set = (production[0], production[1])
+            if(set not in newProds):
+                newProds.append((production[0], production[1]))
 
-    return newProds
-
-def eliminate_Unitry(productions, variables):
     result = []
-    for production in productions:
+    for item in newProds:
+        print(item)
+    for production in newProds:
         panjang = len(production[1])
-        if panjang <=2:
+        if panjang <= 2:
             result.append(production)
         else :
             newVar = variablesJar.pop(0)
             variables.append(newVar+'1')
-            result.append((production[0],production[[1][0]]+[newVar+'1']))
-            i = 1
+            result.append((production[0],[production[1][0]]+[newVar+'1']))
             for i in range (1,panjang-2):
                 var, var2 = newVar+str(i), newVar+str(i+1)
                 variables.append(var2)
                 result.append((var, [production[0][i],var2]))
             result.append((newVar+str(panjang-2),production[1][panjang-2:panjang]))
+
     return result
     
 def convertCFGtoCNY():
@@ -245,10 +246,10 @@ def convertCFGtoCNY():
     productionsFix = EliminateElipson(productions, variables)
     #productionsFix = EliminateUnit(productionsFix, variables)
     productionsFix = eliminateUselessVariable(productionsFix,variables)
-    productionsFix = ConvertToCNFStep1(productionsFix, variables, terminals)
-    #print(*productionsFix)
+    productionsFix = ConvertToCNF(productionsFix, variables, terminals)
     productionsFix = ConvertToDict(productionsFix)
-    print(productionsFix)
     return productionsFix
 
 fix = convertCFGtoCNY()
+for item in fix.items():
+    print(item)
