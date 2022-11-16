@@ -82,7 +82,6 @@ def GenerateFromNullable(body):
     return newBodies
 
 def EliminateElipson(productions, variables):
-
     prodsDict = ConvertToDict(productions)
     newProds = list.copy(productions)
 
@@ -96,6 +95,8 @@ def EliminateElipson(productions, variables):
     for prod in productions:
         if (IsEpsilonProd(prod[1])):
             newProds.remove(prod)
+    
+    return newProds
 
 
 def IsUnitBody(body, variables):
@@ -112,26 +113,27 @@ def IsUnitPairs(currentPair, prodsDict, variables):
     else:
         for body in prodsDict[currentPair[0]]:
             if (IsUnitBody(body, variables)):
-                res = IsUnitPairs(body[0], currentPair[1])
+                res = IsUnitPairs((body[0], currentPair[1]), prodsDict, variables)
 
                 if (res):
                     unitPairs.append(currentPair)
                     return True
+                else:
+                    return False
 
     
     return False
 
 def EliminateUnit(productions, variables):
-
     prodsDict = ConvertToDict(productions)
     newProds = []
 
-    for var in variables:
-        for var in variables:
-            if (IsUnitPairs((var, var))):
-                for body in prodsDict[var]:
-                    if(IsUnitBody):
-                        newProds.append((var, body))
+    for var1 in variables:
+        for var2 in variables:
+            if (IsUnitPairs((var1, var2), prodsDict, variables)):
+                for body in prodsDict[var1]:
+                    if(IsUnitBody(body, variables)):
+                        newProds.append((var1, body))
 
     return newProds
 
@@ -176,7 +178,6 @@ def eliminateUselessVariable(productions, variables):
         for i in range(len(production[1])):
             if (production[1][i] in variables and production[1][i] not in nonUselessVariables):
                 check = False
-                print(production[1])
         if(check):
             newProds.append(production)
 
@@ -193,23 +194,19 @@ def ConvertToDict (productions):
     return dictionary
 
 
-def eliminate_terakhir(productions, variables):#ini blm ya
+def eliminate_terakhir(productions):#ini blm ya
     return productions
 
 def convertCFGtoCNY():
-    terminals, variables, productions = ReadGrammer("C:/Users/sebas/OneDrive/Documents/Kuliah sem 3/TubesTBFO/CFG/CFG.txt")
+    terminals, variables, productions = ReadGrammer("C:/Users/michj/Desktop/Folders/Coding/TubesTBFO/TubesTBFO/CFG/CFG.txt")
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
     productionsFix = EliminateElipson(productions, variables)
     productionsFix = EliminateUnit(productionsFix, variables)
     productionsFix = eliminateUselessVariable(productionsFix,variables)
-    productionsFix = eliminate_terakhir(productionsFix,variables)
+    productionsFix = eliminate_terakhir(productionsFix)
     productionsFix = ConvertToDict(productionsFix)
     return productionsFix
 
-    #kamus = convertToDict(productions,variables)
-    #print(kamus)
-
 fix = convertCFGtoCNY()
-print(fix)
