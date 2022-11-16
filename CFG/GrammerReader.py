@@ -182,7 +182,7 @@ def eliminateUselessVariable(productions, variables):
 
     return newProds
 
-def convertToDict (productions,variables):
+def ConvertToDict (productions):
     dictionary = {}
     for production in productions :
         if(production[0] in dictionary.keys()):
@@ -192,10 +192,24 @@ def convertToDict (productions,variables):
             dictionary[production[0]].append(production[1])
     return dictionary
 
+
+def eliminate_terakhir(productions, variables):#ini blm ya
+    return productions
+
 def convertCFGtoCNY():
     terminals, variables, productions = ReadGrammer("C:/Users/sebas/OneDrive/Documents/Kuliah sem 3/TubesTBFO/CFG/CFG.txt")
+    for nonTerminals in variables :
+        if nonTerminals in variablesJar:
+            variablesJar.remove(nonTerminals)
+    productionsFix = EliminateElipson(productions, variables)
+    productionsFix = EliminateUnit(productionsFix, variables)
+    productionsFix = eliminateUselessVariable(productionsFix,variables)
+    productionsFix = eliminate_terakhir(productionsFix,variables)
+    productionsFix = ConvertToDict(productionsFix)
+    return productionsFix
 
-    kamus = convertToDict(productions,variables)
-    print(kamus)
+    #kamus = convertToDict(productions,variables)
+    #print(kamus)
 
-convertCFGtoCNY()
+fix = convertCFGtoCNY()
+print(fix)
