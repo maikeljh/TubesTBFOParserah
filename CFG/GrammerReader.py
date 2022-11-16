@@ -46,6 +46,7 @@ def IsEpsilonVar(currentVar, prodsDict, variables):
         return False
 
     prods = prodsDict[currentVar]
+
     return(len(prods) == 1 and IsEpsilonProd(prods[0]))
 
 def IsNullable(currentVar, prodsDict, variables, processedVar):
@@ -101,7 +102,10 @@ def IsNullable(currentVar, prodsDict, variables, processedVar):
 
             if(finalResult):
                 break
-                
+
+    if (not(currentVar in nullables) and finalResult):
+        nullables.append(currentVar)   
+
     processedVar.remove(currentVar)
     return finalResult
 
@@ -144,10 +148,9 @@ def EliminateEpsilon(productions, variables):
                     newProds.append((var, newBodies[i]))
 
     newProds = [prod for prod in newProds if not(IsEpsilonProd(prod[1]))]
-
     for var in variables:
         if (IsEpsilonVar(var, prodsDict, variables)):
-             newProds = [prod for prod in newProds if (not(var in prod[1]))]
+            newProds = [prod for prod in newProds if (not(var in prod[1]))]
 
     return newProds
 
@@ -159,25 +162,36 @@ def updateVariable(newProduction, variables):
 def IsUnitBody(body, variables):
     return (len(body) == 1 and (body[0] in variables))
 
-def IsUnitPairs(currentPair, prodsDict, variables):
+def IsUnitPairs(currentPair, prodsDict, variables, processedPair):
+
+    if (currentPair in processedPair):
+        return False
+
+    processedPair.append(currentPair)
+    finalResult = False
 
     if (currentPair in unitPairs):
-        return True
+        finalResult = True
     
     elif (currentPair[0] == currentPair[1]):
-        unitPairs.append(currentPair)
-        return True
+        finalResult = True
     
     else:
         for body in prodsDict[currentPair[0]]:
             if (IsUnitBody(body, variables)):
-                res = IsUnitPairs((body[0], currentPair[1]), prodsDict, variables)
+                res = IsUnitPairs((body[0], currentPair[1]), prodsDict, variables, processedPair)
 
                 if (res):
                     unitPairs.append(currentPair)
-                    return True
-    
-    return False
+                    finalResult = True
+                    break
+
+    if (not(currentPair in unitPairs) and finalResult):
+        unitPairs.append(currentPair)
+
+    processedPair.remove(currentPair)
+
+    return finalResult
 
 def EliminateUnit(productions, variables):
     prodsDict = ConvertToDict(productions)
@@ -185,9 +199,9 @@ def EliminateUnit(productions, variables):
 
     for var1 in variables:
         for var2 in variables:
-            if (IsUnitPairs((var1, var2), prodsDict, variables)):
+            if (IsUnitPairs((var1, var2), prodsDict, variables, [])):
                 for body in prodsDict[var2]:
-                    if(not(IsUnitBody(body, variables))):
+                    if((not ((var1, body) in newProds)) and (not(IsUnitBody(body, variables)))):
                         newProds.append((var1, body))
 
     return newProds
@@ -253,7 +267,7 @@ def eliminate_terakhir(productions):#ini blm ya
     return productions
 
 def convertCFGtoCNY():
-    terminals, variables, productions = ReadGrammer("./CFG/TEST.txt")
+    terminals, variables, productions = ReadGrammer("./CFG/TEST4.txt")
     print(productions)
     
     for nonTerminals in variables :
