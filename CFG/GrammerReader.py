@@ -295,8 +295,7 @@ def ConvertToCNF(productions, variables, terminals):
                 newProds.append((production[0], production[1]))
 
     result = []
-    for item in newProds:
-        print(item)
+
     for production in newProds:
         panjang = len(production[1])
         if panjang <= 2:
@@ -325,8 +324,6 @@ def convertCFGtoCNY():
     productionsFix = eliminateUselessVariable(productionsFix,variables)
     productionsFix = ConvertToCNF(productionsFix, variables, terminals)
     productionsFix = ConvertToDict(productionsFix)
-    for item in productionsFix.items():
-        print(item)
 
     return productionsFix
 
