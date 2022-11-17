@@ -12,10 +12,10 @@ def CYK(splittedCode, CNF):
             for production in var[1]:
                 if(len(production) == 1 and production[0] == splittedCode[i]):
                     # If so, we place Var in cell (i, i) of our table
-                    Table[i][i] = var[0]
+                    Table[i][i].add(var[0])
     
     # Step 2
-    for l in range(1, len(splittedCode)):
+    for l in range(2, len(splittedCode) + 1):
         for i in range(len(splittedCode) - l + 1):
             j = i + l - 1
             for k in range(i, j):
@@ -26,7 +26,7 @@ def CYK(splittedCode, CNF):
                             # We check if (i , k) cell contains B and (k + 1, j) cell contains C
                             if(production[0] in Table[i][k] and production[1] in Table[k+1][j]):
                                 # If so, we put A in cell (i, j) of our table
-                                Table[i][j] = var[0]
+                                Table[i][j].add(var[0])
 
     # Step 3
     # We check if CODE is in (0, len(splittedCode) - 1)
