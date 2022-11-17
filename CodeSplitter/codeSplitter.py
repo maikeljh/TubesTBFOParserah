@@ -14,7 +14,7 @@ def Code_splitter(inputFile):
     #Pisahin spasi yang ada di isi file
     output = shlex.split(isiFile, posix=False)
     for isi_output in  output:
-        hasil_output = re.split('([(|)|;])', isi_output)
+        hasil_output = re.split('([(|)|;|-|+|*|/|%|!|=|<|>|&|?|~|^|0|1|2|3|4|5|6|7|8|9])', isi_output)
         for isi_hasil_output in hasil_output :
             if (isi_hasil_output !=''):
                 outputfix.append(isi_hasil_output)
