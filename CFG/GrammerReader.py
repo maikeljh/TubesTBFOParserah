@@ -16,7 +16,12 @@ variablesJar = ["A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1", "I1", "J1", "K1"
 "A11", "B11", "C11", "D11", "E11", "F11", "G11", "H11", "I11", "J11", "K11", "L11", "M11", "N11", "O11", "P11", "Q11", "R11", "S11", "T11", "U11", "V11", "W11", "X11", "Y11", "Z11",
 "A12", "B12", "C12", "D12", "E12", "F12", "G12", "H12", "I12", "J12", "K12", "L12", "M12", "N12", "O12", "P12", "Q12", "R12", "S12", "T12", "U12", "V12", "W12", "X12", "Y12", "Z12",
 "A13", "B13", "C13", "D13", "E13", "F13", "G13", "H13", "I13", "J13", "K13", "L13", "M13", "N13", "O13", "P13", "Q13", "R13", "S13", "T13", "U13", "V13", "W13", "X13", "Y13", "Z13",
-"A14", "B14", "C14", "D14", "E14", "F14", "G14", "H14", "I14", "J14", "K14", "L14", "M14", "N14", "O14", "P14", "Q14", "R14", "S14", "T14", "U14", "V14", "W14", "X14", "Y14", "Z14"]
+"A14", "B14", "C14", "D14", "E14", "F14", "G14", "H14", "I14", "J14", "K14", "L14", "M14", "N14", "O14", "P14", "Q14", "R14", "S14", "T14", "U14", "V14", "W14", "X14", "Y14", "Z14",
+"A15", "B15", "C15", "D15", "E15", "F15", "G15", "H15", "I15", "J15", "K15", "L15", "M15", "N15", "O15", "P15", "Q15", "R15", "S15", "T15", "U15", "V15", "W15", "X15", "Y15", "Z15",
+"A16", "B16", "C16", "D16", "E16", "F16", "G16", "H16", "I16", "J16", "K16", "L16", "M16", "N16", "O16", "P16", "Q16", "R16", "S16", "T16", "U16", "V16", "W16", "X16", "Y16", "Z16",
+"A17", "B17", "C17", "D17", "E17", "F17", "G17", "H17", "I17", "J17", "K17", "L17", "M17", "N17", "O17", "P17", "Q17", "R17", "S17", "T17", "U17", "V17", "W17", "X17", "Y17", "Z17",
+"A18", "B18", "C18", "D18", "E18", "F18", "G18", "H18", "I18", "J18", "K18", "L18", "M18", "N18", "O18", "P18", "Q18", "R18", "S18", "T18", "U18", "V18", "W18", "X18", "Y18", "Z18",
+"A19", "B19", "C19", "D19", "E19", "F19", "G19", "H19", "I19", "J19", "K19", "L19", "M19", "N19", "O19", "P19", "Q19", "R19", "S19", "T19", "U19", "V19", "W19", "X19", "Y19", "Z19"]
 
 def ReadGrammer(relativePath):
     try:
@@ -278,8 +283,11 @@ def ConvertToCNF(productions, variables, terminals):
     dictionary = {}
     for production in productions:
         if(production[0] in variables and len(production[1]) == 1):
-            if(production[1][0] in terminals):
-                dictionary[production[1][0]] = production[0]
+            if(production[1][0] in terminals and production[1][0] not in dictionary.keys()):
+                newVar = variablesJar.pop()
+                dictionary[production[1][0]] = newVar
+                newProduction = (newVar, [production[1][0]])
+                newProds.append(newProduction)
 
     for production in productions:
         if(production[0] in variables and len(production[1]) == 1 and production not in newProds):
@@ -317,7 +325,7 @@ def ConvertToCNF(productions, variables, terminals):
     
 def convertCFGtoCNY():
     terminals, variables, productions = ReadGrammer("./CFG/CFG.txt")
-    
+
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
@@ -327,5 +335,4 @@ def convertCFGtoCNY():
     productionsFix = eliminateUselessVariable(productionsFix,variables)
     productionsFix = ConvertToCNF(productionsFix, variables, terminals)
     productionsFix = ConvertToDict(productionsFix)
-
     return productionsFix
