@@ -286,6 +286,8 @@ def ConvertToCNF(productions, variables, terminals):
     newProds = []
 
     dictionary = {}
+
+    # Create Production For Each Terminal that Exist in Productions (for example: D -> a)
     for production in productions:
         if(production[0] in variables and len(production[1]) == 1):
             if(production[1][0] in terminals and production[1][0] not in dictionary.keys()):
@@ -293,7 +295,8 @@ def ConvertToCNF(productions, variables, terminals):
                 dictionary[production[1][0]] = newVar
                 newProduction = (newVar, [production[1][0]])
                 newProds.append(newProduction)
-
+    
+    # Append Production in form of (B -> b) or (from A -> aAa to D -> a and A -> DAD)
     for production in productions:
         if(production[0] in variables and len(production[1]) == 1 and production not in newProds):
             newProds.append(production)
@@ -312,6 +315,7 @@ def ConvertToCNF(productions, variables, terminals):
 
     result = []
 
+    # Changing Production from A -> DAD to A -> XD and X -> DA
     for production in newProds:
         panjang = len(production[1])
         if panjang <= 2:
