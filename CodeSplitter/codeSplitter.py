@@ -13,9 +13,21 @@ def Code_splitter(inputFile):
     isiFile = Read_file(inputFile)
     # pisahin isi_File dengan new line
     isiFile= re.split('\n',isiFile)
+    newIsiFile = []
+    for isi_dummy_isiFile in isiFile : #menghilangkan tab pada setiap baris
+        isinyaNewIsiFile = []
+        belumhuruf = False
+        for isi_isi_dummy_isiFile in isi_dummy_isiFile : #cek depannya ada tab ga
+            if (isi_isi_dummy_isiFile==' ' and not belumhuruf): #kalo ada tab, ganti jadi kosong
+                isi_isi_dummy_isiFile = ''
+            else :
+                belumhuruf = True
+            isinyaNewIsiFile.append(isi_isi_dummy_isiFile) #dibalikin jadi newIsiFile
+        temp = ''.join(isinyaNewIsiFile)
+        newIsiFile.append(temp)
     output = []
     # ilangin command
-    for isi_isiFile in isiFile :
+    for isi_isiFile in newIsiFile :
         found = False
         ketemu = False
         # Cari yang ada //
@@ -55,12 +67,23 @@ def Code_splitter(inputFile):
     # Semua output yang diappend, dijadikan 1 string lagi
     output = ''.join(output)
     #ini misahin spasi
-    output = shlex.split(output, posix=False)
+    output = re.split("(\s)", output)
+    output = list(output)
+    spasi1 = False
+    idx = 0
+    for i in range (len(output)) :
+        if (output[idx] == ' ' and spasi1):
+            output.pop(idx)
+            i+=1
+            idx -=1
+        elif (output[idx] == ' '):
+            spasi1 = True
+        else :
+            spasi1 = False
+        idx +=1;
     for isi_output in  output:
-
-        hasil_output = re.split('([(|)|;|-|+|*|/|%|!|=|<|>|&|?|~|^|0|1|2|3|4|5|6|7|8|9|:|{|}|\\\'|\\"|\\\])', isi_output)
-        for isi_hasil_output1 in hasil_output :
-
+        hasil_output = re.split('([(|)|;|-|+|*|/|%|!|=|<|>|&|?|~|^|0|1|2|3|4|5|6|7|8|9|:|{|}|`|\\\])', isi_output) # Memisahkan tanda dan angka
+        for isi_hasil_output1 in hasil_output : #memisahkan huruf jika tidak termasuk fungsi
             if (isi_hasil_output1 != "break" and isi_hasil_output1 != 'const' and isi_hasil_output1 != 'case' and isi_hasil_output1 != 'catch' and isi_hasil_output1 != 'continue' and isi_hasil_output1 != 'default' and isi_hasil_output1 != 'delete' and isi_hasil_output1 != 'else' and isi_hasil_output1 != 'false' and isi_hasil_output1 != 'finally' and isi_hasil_output1 != "for" and isi_hasil_output1 != 'function' and isi_hasil_output1 != 'if' and isi_hasil_output1 != 'let' and isi_hasil_output1 != 'null' and isi_hasil_output1 != 'return' and isi_hasil_output1 != 'switch' and isi_hasil_output1 != 'throw' and isi_hasil_output1 != 'try' and isi_hasil_output1 != 'true' and isi_hasil_output1 != 'var' and isi_hasil_output1 != 'while' and isi_hasil_output1!='default' ):
                 hasil_output2 = re.split('(a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z)', isi_hasil_output1)
                 for isi_hasil_output2 in hasil_output2 :
