@@ -1,8 +1,6 @@
-switch (expression) {
-  case x:
-    break;
-  case y:
-    break;
+switch (x) {
+  case 1:
+    return 3;
   default:
-    break;
+    return 4;
 }
