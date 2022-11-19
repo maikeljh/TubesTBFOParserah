@@ -1,0 +1,8 @@
+#TERMINALS
+a  b
+#VARIABLES
+S  A  B
+#PRODUCTIONS
+S -> A S B  
+A -> a A S  a
+B -> S b S  A  b b
