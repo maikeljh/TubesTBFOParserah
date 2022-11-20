@@ -1,3 +1,0 @@
-for(let var = 1; var <= 10; var++){
-    kontol();
-}
