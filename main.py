@@ -7,6 +7,9 @@ CNF = cfg.convertCFGtoCNY()
 print("\nWelcome To Our Javascript Parser!")
 file = str(input("Please Input Your File Javascript (type EXIT to exit): "))
 while(file != "EXIT"):
+    if (not(".js" in file)):
+        file += ".js"
+
     output = cs.Code_splitter("./" + file)
     print(output)
     cyk.CYK(output, CNF)
