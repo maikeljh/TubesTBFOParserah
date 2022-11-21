@@ -67,10 +67,19 @@ def Code_splitter(inputFile):
     # Semua output yang diappend, dijadikan 1 string lagi
     output = ''.join(output)
     #ini misahin spasi
-    output = re.split("(\s)", output)
+    output = re.split('(\s)', output)
+    #print(output)
     output = list(output)
     spasi1 = False
     idx = 0
+    idx2 = 0
+    for i2 in range (len(output)) :
+        if (output[idx2] == '') :
+            output.pop(idx2)
+            i2+=1
+            idx2 -=1
+        idx2+=1
+    print(output)
     for i in range (len(output)) :
         if (output[idx] == ' ' and spasi1):
             output.pop(idx)
@@ -82,7 +91,7 @@ def Code_splitter(inputFile):
             spasi1 = False
         idx +=1
     for isi_output in  output:
-        hasil_output = re.split('([(|)|;|-|+|*|/|%|!|=|<|>|&|?|~|^|0|1|2|3|4|5|6|7|8|9|:|{|}|`])', isi_output) # Memisahkan tanda dan angka
+        hasil_output = re.split('([(|)|;|-|+|*|/|%|!|=|<|>|&|?|~|^|0|1|2|3|4|5|6|7|8|9|:|{|}|`|\\\])', isi_output) # Memisahkan tanda dan angka
         for isi_hasil_output1 in hasil_output : #memisahkan huruf jika tidak termasuk fungsi
             if (isi_hasil_output1 != "break" and isi_hasil_output1 != 'const' and isi_hasil_output1 != 'case' and isi_hasil_output1 != 'catch' and isi_hasil_output1 != 'continue' and isi_hasil_output1 != 'default' and isi_hasil_output1 != 'delete' and isi_hasil_output1 != 'else' and isi_hasil_output1 != 'false' and isi_hasil_output1 != 'finally' and isi_hasil_output1 != "for" and isi_hasil_output1 != 'function' and isi_hasil_output1 != 'if' and isi_hasil_output1 != 'let' and isi_hasil_output1 != 'null' and isi_hasil_output1 != 'return' and isi_hasil_output1 != 'switch' and isi_hasil_output1 != 'throw' and isi_hasil_output1 != 'try' and isi_hasil_output1 != 'true' and isi_hasil_output1 != 'var' and isi_hasil_output1 != 'while' and isi_hasil_output1!='default' ):
                 hasil_output2 = re.split('(a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z)', isi_hasil_output1)
