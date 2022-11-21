@@ -1,5 +1,5 @@
 from CYK import cyk as cyk
-from CodeSplitter import tempCodeSplitter as cs
+from CodeSplitter import codeSplitter as cs
 from CFG import GrammerReader as cfg
 
 print("Loading...")
