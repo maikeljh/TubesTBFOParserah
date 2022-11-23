@@ -1,5 +1,2 @@
-if (check) {
-  test = x;
-} else {
-  text = y;
-}
+lastName = "Doe";
+lastname = "Peterson";
