@@ -340,5 +340,5 @@ def convertCFGtoCNY():
     productionsFix = eliminateUselessVariable(productionsFix,variables)
     productionsFix = ConvertToCNF(productionsFix, variables, terminals)
     productionsFix = ConvertToDict(productionsFix)
-    print(productionsFix)
+
     return productionsFix
