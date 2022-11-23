@@ -1,1 +1,1 @@
-let nama_var, var_inisialisasi = 4;
+{`$}ff${({data+ 4})}\\\{}$0}{$}`;}
