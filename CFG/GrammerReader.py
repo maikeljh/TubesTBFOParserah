@@ -331,7 +331,7 @@ def ConvertToCNF(productions, variables, terminals):
     return result
     
 def convertCFGtoCNY():
-    terminals, variables, productions = ReadGrammer("./CFG/TEST1.txt")
+    terminals, variables, productions = ReadGrammer("./CFG/CFG.txt")
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
@@ -340,5 +340,4 @@ def convertCFGtoCNY():
     productionsFix = eliminateUselessVariable(productionsFix,variables)
     productionsFix = ConvertToCNF(productionsFix, variables, terminals)
     productionsFix = ConvertToDict(productionsFix)
-    print(productionsFix)
     return productionsFix
