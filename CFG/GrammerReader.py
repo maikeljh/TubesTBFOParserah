@@ -329,9 +329,9 @@ def ConvertToCNF(productions, variables, terminals):
             result.append((newVar+str(panjang-2),production[1][panjang-2:panjang]))
 
     return result
-    
+
 def convertCFGtoCNY():
-    terminals, variables, productions = ReadGrammer("./CFG/TEST1.txt")
+    terminals, variables, productions = ReadGrammer("./CFG/CFG.txt")
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
