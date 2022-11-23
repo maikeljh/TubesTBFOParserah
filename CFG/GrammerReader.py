@@ -335,7 +335,7 @@ def convertCFGtoCNY():
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
-
+    productions.append(("BLANK", [' ', '']))
     productionsFix = EliminateEpsilon(productions, variables)
     productionsFix = EliminateUnit(productionsFix, variables)
     productionsFix = eliminateUselessVariable(productionsFix,variables)
