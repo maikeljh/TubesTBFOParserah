@@ -1,2 +1,1 @@
-lastName = "Doe";
-lastname = "Peterson";
+5 + "foo";

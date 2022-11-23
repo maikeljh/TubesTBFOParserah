@@ -252,5 +252,19 @@ def Code_splitter(inputFile):
         else :
             belombelom = False
         idx +=1;
+    
+    idx = 0
+    belombelom = False
+    for i in range(len(resultbeneranbanget)):
+        if ( resultbeneranbanget[idx]==' ' and not belombelom):
+            belombelom = True
+        elif(belombelom and (resultbeneranbanget[idx]=='"' or resultbeneranbanget[idx]=="'" or resultbeneranbanget[idx]=='`')):
+            resultbeneranbanget.pop(idx-1)
+            i+=1
+            idx -=1
+            belombelom = False
+        else :
+            belombelom = False
+        idx +=1;
 
     return resultbeneranbanget
