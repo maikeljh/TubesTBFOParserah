@@ -1,1 +1,1 @@
-let 1ffe;
+let nama_var, var_inisialisasi = 4;
