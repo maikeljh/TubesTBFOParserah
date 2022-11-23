@@ -266,5 +266,34 @@ def Code_splitter(inputFile):
         else :
             belombelom = False
         idx +=1
+    
+    ketemumulti1 = False
+    pernah = 0
+    for i in range (len(resultbeneranbanget)):
+        if (resultbeneranbanget[i] == '/*' and not ketemumulti1):
+            ketemumulti1 = True
+        elif (resultbeneranbanget[i] == '*/' and ketemumulti1):
+            ketemumulti1 = False
+            pernah +=1
 
-    return resultbeneranbanget
+    resultbeneranbangetbanget = []
+    idx = 0
+    booleanpembantu = False
+    for i in range (len(resultbeneranbanget)):
+        if(resultbeneranbanget[i]=='/*' and not booleanpembantu and pernah>0):
+            booleanpembantu = True
+        elif (resultbeneranbanget[i]=='/*' and not booleanpembantu and pernah==0):
+            booleanpembantu = True
+            resultbeneranbangetbanget.append(resultbeneranbanget[i])
+        elif (not booleanpembantu and pernah>0):
+            resultbeneranbangetbanget.append(resultbeneranbanget[i])
+        elif(resultbeneranbanget[i]=='*/' and booleanpembantu and pernah>0):
+            booleanpembantu = False
+            pernah -=1
+        elif (resultbeneranbanget[i]!='/*' and not booleanpembantu):
+            resultbeneranbangetbanget.append(resultbeneranbanget[i])
+        elif (pernah==0 and booleanpembantu):
+            resultbeneranbangetbanget.append(resultbeneranbanget[i])
+
+
+    return resultbeneranbangetbanget
