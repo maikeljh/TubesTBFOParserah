@@ -1,1 +1,3 @@
-tes({ x: (y = 3) });
+let data = {
+  name: "Brendan Eich",
+};
