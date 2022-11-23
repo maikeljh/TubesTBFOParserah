@@ -1,3 +1,1 @@
-let lastname, lastName;
-lastName = "Doe";
-lastname = "Peterson";
+tes({ x: (y = 3) });

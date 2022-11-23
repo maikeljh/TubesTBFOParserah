@@ -251,7 +251,7 @@ def Code_splitter(inputFile):
             belombelom = False
         else :
             belombelom = False
-        idx +=1;
+        idx +=1
     
     idx = 0
     belombelom = False
@@ -265,7 +265,7 @@ def Code_splitter(inputFile):
             belombelom = False
         else :
             belombelom = False
-        idx +=1;
+        idx +=1
     
     ketemumulti1 = False
     pernah = 0
