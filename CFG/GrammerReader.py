@@ -58,7 +58,7 @@ def IsEpsilonProd(body):
     return ((len(body) == 1 and body[0] == '') or len(body) == 0)
 
 def IsEpsilonVar(currentVar, prodsDict, variables):
-    if (not(currentVar in variables)):
+    if (not(currentVar in variables) or not(currentVar in prodsDict.keys())):
         return False
 
     prods = prodsDict[currentVar]
@@ -81,7 +81,7 @@ def IsNullable(currentVar, prodsDict, variables, processedVar):
         finalResult = True
            
     # rekurens dan basis di dalam loop
-    else:
+    elif (currentVar in prodsDict.keys()):
         for body in prodsDict[currentVar]:
             
             # basis epsilon
@@ -157,11 +157,12 @@ def EliminateEpsilon(productions, variables):
     newProds = list.copy(productions)
 
     for var in variables:
-        for body in prodsDict[var]:
-            newBodies = GenerateFromNullable(body, prodsDict, variables)
-            for i in range(1, len(newBodies)):
-                if(not((var, newBodies[i]) in newProds)):
-                    newProds.append((var, newBodies[i]))
+        if (var in prodsDict.keys()):
+            for body in prodsDict[var]:
+                newBodies = GenerateFromNullable(body, prodsDict, variables)
+                for i in range(1, len(newBodies)):
+                    if(not((var, newBodies[i]) in newProds)):
+                        newProds.append((var, newBodies[i]))
 
     newProds = [prod for prod in newProds if not(IsEpsilonProd(prod[1]))]
     for var in variables:
@@ -192,7 +193,7 @@ def IsUnitPairs(currentPair, prodsDict, variables, processedPair):
     elif (currentPair[0] == currentPair[1]):
         finalResult = True
     
-    else:
+    elif (currentPair[0] in prodsDict):
         for body in prodsDict[currentPair[0]]:
             if (IsUnitBody(body, variables)):
                 res = IsUnitPairs((body[0], currentPair[1]), prodsDict, variables, processedPair)
@@ -330,7 +331,7 @@ def ConvertToCNF(productions, variables, terminals):
     return result
     
 def convertCFGtoCNY():
-    terminals, variables, productions = ReadGrammer("./CFG/CFG.txt")
+    terminals, variables, productions = ReadGrammer("./CFG/TEST1.txt")
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
@@ -339,4 +340,5 @@ def convertCFGtoCNY():
     productionsFix = eliminateUselessVariable(productionsFix,variables)
     productionsFix = ConvertToCNF(productionsFix, variables, terminals)
     productionsFix = ConvertToDict(productionsFix)
+    print(productionsFix)
     return productionsFix
