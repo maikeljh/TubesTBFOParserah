@@ -36,7 +36,6 @@ def ReadGrammer(relativePath):
         temp.pop(0)
 
         productions.append(("BLANK", [' ']))
-        productions.append(("BLANK", ['']))
 
         for line in temp:
             head = line.split(" -> ")[0]
@@ -335,7 +334,6 @@ def convertCFGtoCNY():
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
-    productions.append(("BLANK", [' ', '']))
     productionsFix = EliminateEpsilon(productions, variables)
     productionsFix = EliminateUnit(productionsFix, variables)
     productionsFix = eliminateUselessVariable(productionsFix,variables)
