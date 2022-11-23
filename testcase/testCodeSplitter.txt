@@ -1,4 +1,4 @@
-if (check ) {
+if (check) {
   test = x;
 } else {
   text = y;

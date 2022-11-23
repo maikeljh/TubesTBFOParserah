@@ -1,5 +1,3 @@
-if (check) {
-  test = x;
-} else {
-  text = y;
-}
+let lastname, lastName;
+lastName = "Doe";
+lastname = "Peterson";
