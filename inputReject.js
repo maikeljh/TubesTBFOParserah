@@ -1,4 +1,1 @@
-let data = {
-  name: "Brendan Eich",
-  inventor: "Javascript",
-};
+function tes(x, y);
