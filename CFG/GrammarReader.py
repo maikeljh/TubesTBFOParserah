@@ -468,6 +468,22 @@ def ConvertToCNF(productions, variables, terminals):
 
     return result
 
+def IsGrammarValid(variables, productions):
+
+    isValid = True
+    for prod in productions:
+        if (not (prod[0] in variables)):
+            print("Error :", prod[0], "is not in variable!")
+            isValid = False
+
+    heads = [x for(x, _) in productions]
+
+    for var in variables:
+        if (not (var in heads)):
+            print("Error :", var, "does not have any productions!")
+    
+    return isValid
+
 def convertCFGtoCNF():
     """
     Main Function converting CFG to CNF
@@ -479,6 +495,13 @@ def convertCFGtoCNF():
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
+
+    isValid = IsGrammarValid(variables, productions)
+
+    if (not isValid):
+        print("Error : Grammar is not valid!")
+        exit()
+    
     productionsFix = EliminateEpsilon(productions, variables)
     productionsFix = EliminateUnit(productionsFix, variables)
     productionsFix = eliminateUselessVariable(productionsFix,variables)
