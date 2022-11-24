@@ -182,7 +182,6 @@ def Code_splitter(inputFile):
             result.append(outputfix[i])
             check1 = False
             check2 = False
-
     resultbeneran = []
     fase1 = False
     fase2 = False
@@ -205,7 +204,6 @@ def Code_splitter(inputFile):
             fase2 = False
             fase1 = False
             resultbeneran.append(result[i5])
-
     result = []
     check = False
     for i in range(len(resultbeneran)):
@@ -247,34 +245,59 @@ def Code_splitter(inputFile):
         else :
             belombelom = False
         idx +=1
-    
     resultbeneranbanget2 = []
     cek1 = False
     for i in range (len(resultbeneranbanget)):
         if (resultbeneranbanget[i]=='\\' and not cek1):
             temp = resultbeneranbanget[i]
             cek1 = True
-        elif (cek1 and resultbeneranbanget=='\\'):
+        elif (cek1 and resultbeneranbanget[i]=='\\'):
             resultbeneranbanget2.append(temp + resultbeneranbanget[i])
+            cek1 = False
+        elif (cek1 and resultbeneranbanget[i]!='\\'):
+            resultbeneranbanget2.append(temp)
+            resultbeneranbanget2.append(resultbeneranbanget[i])
             cek1 = False
         else :
             resultbeneranbanget2.append(resultbeneranbanget[i])
             cek1 = False
-            
+
     idx = 0
     belombelom = False
+    ketemukutipa = False
+    ketemukutipb = False
+    ketemukutipc = False
     for i in range(len(resultbeneranbanget2)):
-        if ( resultbeneranbanget2[idx]==' ' and not belombelom):
+        if (not belombelom and not ketemukutipa and (resultbeneranbanget2[idx]=='"')):
+            ketemukutipa = True
+        elif (not belombelom and not ketemukutipb and (resultbeneranbanget2[idx]=="'")):
+            ketemukutipb = True
+        elif (not belombelom and not ketemukutipc and (resultbeneranbanget2[idx]=='`')):
+            ketemukutipc = True
+        elif ( resultbeneranbanget2[idx]==' ' and not belombelom):
             belombelom = True
-        elif(belombelom and (resultbeneranbanget2[idx]=='"' or resultbeneranbanget2[idx]=="'" or resultbeneranbanget2[idx]=='`')):
+        elif(belombelom and not ketemukutipa and (resultbeneranbanget2[idx]=='"')):
             resultbeneranbanget2.pop(idx-1)
             i+=1
             idx -=1
             belombelom = False
+            ketemukutipa = False
+        elif(belombelom and not ketemukutipb and (resultbeneranbanget2[idx]=="'")):
+            resultbeneranbanget2.pop(idx-1)
+            i+=1
+            idx -=1
+            belombelom = False
+            ketemukutipb = False
+        elif(belombelom and not ketemukutipc and (resultbeneranbanget2[idx]=='`')):
+            resultbeneranbanget2.pop(idx-1)
+            i+=1
+            idx -=1
+            belombelom = False
+            ketemukutipc = False
+        
         else :
             belombelom = False
         idx +=1
-            
     idx = 0
     belombelom2 = False
     for i in range(len(resultbeneranbanget2)):
