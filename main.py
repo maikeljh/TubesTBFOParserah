@@ -4,7 +4,7 @@ from CFG import GrammerReader as cfg
 
 print("\nLoading...")
 
-CNF = cfg.convertCFGtoCNY()
+CNF = cfg.convertCFGtoCNF()
 
 print("")
 print("      _                                _       _     ____                          ")
@@ -27,7 +27,7 @@ while(file != "EXIT"):
     if (not(".js" in file)):
         file += ".js"
     try:
-        output = cs.Code_splitter("./" + file)
+        output = cs.Code_splitter("./testcase/" + file)
         print(output)
         print("\nParsing...\n")
         cyk.CYK(output, CNF)
