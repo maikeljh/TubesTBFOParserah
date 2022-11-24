@@ -1,13 +1,12 @@
-while(true)
+try{
+    throw new Error(a);
+}
+
+catch(b)
 {
-
-    try{
-        throw 3; break;
-    }
+    b++;
+}
+finally
+{
     
-    catch
-    {         
-        continue;
-    }
-
 }
