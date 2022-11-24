@@ -1,30 +1,13 @@
+import shlex
 import re
 
-def Read_file(inputFile):
-    """
-    Function to read file
-
-    Args:
-        inputFile(string): name of file
-
-    Returns:
-        isiFile(string): content of file
-    """
+def Read_file(inputFile) :
     f = open(inputFile, "r")
     isiFile = f.read()
     f.close()
     return isiFile
 
 def Code_splitter(inputFile):
-    """
-    Function to split code into terminals
-
-    Args:
-        inputFile (string): file name
-
-    Returns:
-        resultbeneranbangetbanget (array): array of terminals of string code
-    """
     #Read File
     outputfix = []
     isiFile = Read_file(inputFile)
@@ -110,7 +93,7 @@ def Code_splitter(inputFile):
     for isi_output in  output:
         hasil_output0 = re.split('([][])', isi_output)
         for isi_hasil_output0 in hasil_output0:
-            hasil_output = re.split('([(|)|;|-|+|*|/|%|!|,|=|<|>|&|?|~|^|0|1|2|3|4|5|6|7|8|9|:|{|}|`|\\\|"|\'|$|_|.|@])', isi_hasil_output0) # Memisahkan tanda dan angka
+            hasil_output = re.split('([(|)|;|+|*|/|%|!|,|=|<|>|&|?|~|^|0|1|2|3|4|5|6|7|8|9|:|{|}|`|\\\|"|\'|$|_|.|@|-])', isi_hasil_output0) # Memisahkan tanda dan angka
             for isi_hasil_output1 in hasil_output : #memisahkan huruf jika tidak termasuk fungsi
                 if (isi_hasil_output1 != "break" and isi_hasil_output1 != 'const' and isi_hasil_output1 != 'case' and isi_hasil_output1 != 'catch' and isi_hasil_output1 != 'continue' and isi_hasil_output1 != 'default' and isi_hasil_output1 != 'delete' and isi_hasil_output1 != 'else' and isi_hasil_output1 != 'false' and isi_hasil_output1 != 'finally' and isi_hasil_output1 != "for" and isi_hasil_output1 != 'function' and isi_hasil_output1 != 'if' and isi_hasil_output1 != 'let' and isi_hasil_output1 != 'null' and isi_hasil_output1 != 'return' and isi_hasil_output1 != 'switch' and isi_hasil_output1 != 'throw' and isi_hasil_output1 != 'try' and isi_hasil_output1 != 'true' and isi_hasil_output1 != 'var' and isi_hasil_output1 != 'while' and isi_hasil_output1!='default' ):
                     hasil_output2 = re.split('(a|b|c|d|e|f|g|h|i|j|k|l|m|n|o|p|q|r|s|t|u|v|w|x|y|z|A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z)', isi_hasil_output1)
@@ -307,5 +290,9 @@ def Code_splitter(inputFile):
             resultbeneranbangetbanget.append(resultbeneranbanget[i])
         elif (pernah==0 and booleanpembantu):
             resultbeneranbangetbanget.append(resultbeneranbanget[i])
+
+    for i in range (len(resultbeneranbangetbanget)):
+        if ((i==(len(resultbeneranbangetbanget)-1)) and (resultbeneranbangetbanget[i] == " ")):
+            resultbeneranbangetbanget.pop(i)
 
     return resultbeneranbangetbanget
