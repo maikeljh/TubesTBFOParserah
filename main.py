@@ -4,7 +4,7 @@ from CFG import GrammerReader as cfg
 
 print("\nLoading...")
 
-CNF = cfg.convertCFGtoCNY()
+CNF = cfg.convertCFGtoCNF()
 
 print("")
 print("      _                                _       _     ____                          ")
@@ -16,8 +16,8 @@ print("                                        |_| \n")
 
 print("Made by:")
 print("1. Michael Jonathan Halim | 13521124")
-print("1. Raynard Tanadi         | 13521143")
-print("1. Johanes Lee            | 13521148")
+print("2. Raynard Tanadi         | 13521143")
+print("3. Johanes Lee            | 13521148")
 
 print("\nWelcome To Our Javascript Parser!\n")
 
@@ -27,7 +27,7 @@ while(file != "EXIT"):
     if (not(".js" in file)):
         file += ".js"
     try:
-        output = cs.Code_splitter("./" + file)
+        output = cs.Code_splitter("./testcase/" + file)
         print(output)
         print("\nParsing...\n")
         cyk.CYK(output, CNF)
