@@ -330,7 +330,7 @@ def ConvertToCNF(productions, variables, terminals):
 
     return result
 
-def convertCFGtoCNY():
+def convertCFGtoCNF():
     terminals, variables, productions = ReadGrammer("./CFG/CFG.txt")
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
