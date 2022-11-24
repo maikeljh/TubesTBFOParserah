@@ -238,9 +238,9 @@ def Code_splitter(inputFile):
     idx = 0
     belombelom = False
     for i in range(len(resultbeneranbanget)):
-        if (resultbeneranbanget[idx]=='=' and not belombelom):
+        if (resultbeneranbanget[idx]=='=' and not belombelom and i<(len(resultbeneranbanget)-2)):
             belombelom = True
-        elif(belombelom and resultbeneranbanget[idx]==' '):
+        elif(belombelom and resultbeneranbanget[idx]==' ' and resultbeneranbanget[idx+1]!='='):
             resultbeneranbanget.pop(idx)
             i+=1
             idx -=1
