@@ -1,1 +1,4 @@
-index[i] > (-1)
+score: {
+    maths: 90,
+    science: 80,
+  },
