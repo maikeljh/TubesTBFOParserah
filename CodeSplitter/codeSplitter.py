@@ -294,10 +294,46 @@ def Code_splitter(inputFile):
             idx -=1
             belombelom = False
             ketemukutipc = False
-        
         else :
             belombelom = False
         idx +=1
+    
+    idx = 0
+    belombelombelom = False
+    ketemukurunga = False
+    ketemukurungb = False
+    ketemukurungc = False
+    for i in range(len(resultbeneranbanget2)):
+        if (not belombelombelom and not ketemukurunga and (resultbeneranbanget2[idx]=='{')):
+            ketemukutipa = True
+        elif (not belombelombelom and not ketemukurungb and (resultbeneranbanget2[idx]=="(")):
+            ketemukurungb = True
+        elif (not belombelombelom and not ketemukurungc and (resultbeneranbanget2[idx]=='[')):
+            ketemukurungc = True
+        elif ( resultbeneranbanget2[idx]==' ' and not belombelombelom):
+            belombelombelom = True
+        elif(belombelombelom and not ketemukurunga and (resultbeneranbanget2[idx]=='}')):
+            resultbeneranbanget2.pop(idx-1)
+            i+=1
+            idx -=1
+            belombelombelom = False
+            ketemukurunga = False
+        elif(belombelombelom and not ketemukurungb and (resultbeneranbanget2[idx]==")")):
+            resultbeneranbanget2.pop(idx-1)
+            i+=1
+            idx -=1
+            belombelombelom = False
+            ketemukurungb = False
+        elif(belombelombelom and not ketemukurungc and (resultbeneranbanget2[idx]==']')):
+            resultbeneranbanget2.pop(idx-1)
+            i+=1
+            idx -=1
+            belombelombelom = False
+            ketemukurungc = False
+        else :
+            belombelombelom = False
+        idx +=1
+
     idx = 0
     belombelom2 = False
     for i in range(len(resultbeneranbanget2)):
