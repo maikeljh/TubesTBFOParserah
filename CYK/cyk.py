@@ -28,31 +28,35 @@ def CYK(splittedCode, CNF):
                 else:
                     dictionary_two_variables[temp].append(var[0])
     
-    # Table Filling Algorithm
-    # Step 1
-    for i in range(len(splittedCode)):
-        # For Each Variable
-        for item in dictionary_terminal[splittedCode[i]]:
-            Table[i][i].add(item)
-    
-    # Step 2
-    for l in range(2, len(splittedCode) + 1):
-        for i in range(len(splittedCode) - l + 1):
-            j = i + l - 1
-            for k in range(i, j):
-                # For each rule A -> BC
-                for item in dictionary_two_variables.items():
-                    # We check if (i , k) cell contains B and (k + 1, j) cell contains C
-                    if(item[0][0] in Table[i][k] and item[0][1] in Table[k+1][j]):
-                        # If so, we put A in cell (i, j) of our table
-                        for var in dictionary_two_variables[item[0]]:
-                            Table[i][j].add(var)
+    try:
+        # Table Filling Algorithm
+        # Step 1
+        for i in range(len(splittedCode)):
+            # For Each Variable
+            for item in dictionary_terminal[splittedCode[i]]:
+                Table[i][i].add(item)
+        
+        # Step 2
+        for l in range(2, len(splittedCode) + 1):
+            for i in range(len(splittedCode) - l + 1):
+                j = i + l - 1
+                for k in range(i, j):
+                    # For each rule A -> BC
+                    for item in dictionary_two_variables.items():
+                        # We check if (i , k) cell contains B and (k + 1, j) cell contains C
+                        if(item[0][0] in Table[i][k] and item[0][1] in Table[k+1][j]):
+                            # If so, we put A in cell (i, j) of our table
+                            for var in dictionary_two_variables[item[0]]:
+                                Table[i][j].add(var)
 
-    # Step 3
-    # We check if CODE is in (0, len(splittedCode) - 1)
-    if "CODE" in Table[0][len(splittedCode) - 1]:
-        # If so, we accept the string
-        print("Accepted")
-    else:
-        # Else, we reject
-        print("Syntax Error")
+        # Step 3
+        # We check if CODE is in (0, len(splittedCode) - 1)
+        if "CODE" in Table[0][len(splittedCode) - 1]:
+            # If so, we accept the string
+            print("Accepted")
+        else:
+            # Else, we reject
+            print("Syntax Error")
+
+    except:
+        print("Terminal not defined")

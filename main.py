@@ -6,14 +6,20 @@ print("\nLoading...")
 
 CNF = cfg.convertCFGtoCNY()
 
-print("\nWelcome To Our Javascript Parser!\n")
-
+print("")
 print("      _                                _       _     ____                          ")
 print("     | | __ ___   ____ _ ___  ___ _ __(_)_ __ | |_  |  _ \ __ _ _ __ ___  ___ _ __ ")
 print("  _  | |/ _` \ \ / / _` / __|/ __| '__| | '_ \| __| | |_) / _` | '__/ __|/ _ \ '__|")
 print(" | |_| | (_| |\ V / (_| \__ \ (__| |  | | |_) | |_  |  __/ (_| | |  \__ \  __/ |   ")
 print("  \___/ \__,_| \_/ \__,_|___/\___|_|  |_| .__/ \__| |_|   \__,_|_|  |___/\___|_|   ")
 print("                                        |_| \n")
+
+print("Made by:")
+print("1. Michael Jonathan Halim | 13521124")
+print("1. Raynard Tanadi         | 13521143")
+print("1. Johanes Lee            | 13521148")
+
+print("\nWelcome To Our Javascript Parser!\n")
 
 file = str(input("Please Input Your File Javascript (type EXIT to exit): "))
 
