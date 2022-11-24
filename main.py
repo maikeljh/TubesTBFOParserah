@@ -23,6 +23,7 @@ while(file != "EXIT"):
     try:
         output = cs.Code_splitter("./" + file)
         print(output)
+        print("\nParsing...\n")
         cyk.CYK(output, CNF)
     except:
         print("\nFile not found.")
