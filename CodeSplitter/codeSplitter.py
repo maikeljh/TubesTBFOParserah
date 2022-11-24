@@ -1,13 +1,30 @@
-import shlex
 import re
 
-def Read_file(inputFile) :
+def Read_file(inputFile):
+    """
+    Function to read file
+
+    Args:
+        inputFile(string): name of file
+
+    Returns:
+        isiFile(string): content of file
+    """
     f = open(inputFile, "r")
     isiFile = f.read()
     f.close()
     return isiFile
 
 def Code_splitter(inputFile):
+    """
+    Function to split code into terminals
+
+    Args:
+        inputFile (string): file name
+
+    Returns:
+        resultbeneranbangetbanget (array): array of terminals of string code
+    """
     #Read File
     outputfix = []
     isiFile = Read_file(inputFile)

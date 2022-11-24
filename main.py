@@ -1,6 +1,6 @@
 from CYK import cyk as cyk
 from CodeSplitter import codeSplitter as cs
-from CFG import GrammerReader as cfg
+from CFG import GrammarReader as cfg
 
 print("\nLoading...")
 

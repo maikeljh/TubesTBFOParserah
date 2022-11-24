@@ -2,6 +2,15 @@
 
 # Start State
 def Expression_state_1(char):
+    """
+    State 1 of FA Check Expression
+
+    Args:
+        char (char): char of expression
+
+    Returns:
+        state (int): next state
+    """
     # Checking the first character of the variable
     state = 0
     if((ord(char) == 33) or (ord(char) == 36) or (ord(char) >= 65 and ord(char) <= 90) or (ord(char) == 95) or (ord(char) >= 97 and ord(char) <= 122)):
@@ -14,6 +23,15 @@ def Expression_state_1(char):
 
 # First Final State
 def Expression_state_2(char):
+    """
+    State 2 of FA Check Expression
+
+    Args:
+        char (char): char of expression
+
+    Returns:
+        state (int): next state
+    """
     # Checking the rest character of the variable
     state = 0
     if((ord(char) == 36) or (ord(char) >= 48 and ord(char) <= 57) or (ord(char) >= 65 and ord(char) <= 90) or (ord(char) == 95) or (ord(char) >= 97 and ord(char) <= 122)):
@@ -35,6 +53,15 @@ def Expression_state_2(char):
     return state
 
 def Expression_state_3(char):
+    """
+    State 3 of FA Check Expression
+
+    Args:
+        char (char): char of expression
+
+    Returns:
+        state (int): next state
+    """
     # Dead state (Expression not valid)
     state = 0
     if(char):
@@ -45,6 +72,15 @@ def Expression_state_3(char):
 
 # Second Final State
 def Expression_state_4(char):
+    """
+    State 4 of FA Check Expression
+
+    Args:
+        char (char): char of expression
+
+    Returns:
+        state (int): next state
+    """
     # Checking if the number consist of number only or not
     state = 0
     if(ord(char) >= 48 and ord(char) <= 57):
@@ -66,6 +102,15 @@ def Expression_state_4(char):
     return state
 
 def Expression_state_5(char):
+    """
+    State 5 of FA Check Expression
+
+    Args:
+        char (char): char of expression
+
+    Returns:
+        state (int): next state
+    """
     # Checking if blank or operator is valid or not
     state = 0
     if(ord(char) == 32):
@@ -85,6 +130,15 @@ def Expression_state_5(char):
     return state
 
 def Expression_state_6(char):
+    """
+    State 6 of FA Check Expression
+
+    Args:
+        char (char): char of expression
+
+    Returns:
+        state (int): next state
+    """
     # Checking if blank or make sure there is number or variable after operator
     state = 0
     if(ord(char) == 32):
@@ -98,6 +152,15 @@ def Expression_state_6(char):
     return state
 
 def Expression_state_7(char):
+    """
+    State 7 of FA Check Expression
+
+    Args:
+        char (char): char of expression
+
+    Returns:
+        state (int): next state
+    """
     # Checking if there is another & after & (&&) or make sure there is number or variable after &
     state = 0
     if((ord(char) == 36) or (ord(char) >= 65 and ord(char) <= 90) or (ord(char) == 95) or (ord(char) >= 97 and ord(char) <= 122)):
@@ -111,6 +174,15 @@ def Expression_state_7(char):
     return state
 
 def Expression_state_8(char):
+    """
+    State 8 of FA Check Expression
+
+    Args:
+        char (char): char of expression
+
+    Returns:
+        state (int): next state
+    """
     # Checking if there is another | after | (||) or make sure there is number or variable after |
     state = 0
     if((ord(char) == 36) or (ord(char) >= 65 and ord(char) <= 90) or (ord(char) == 95) or (ord(char) >= 97 and ord(char) <= 122)):
@@ -124,6 +196,15 @@ def Expression_state_8(char):
     return state
 
 def Expression_state_9(char):
+    """
+    State 9 of FA Check Expression
+
+    Args:
+        char (char): char of expression
+
+    Returns:
+        state (int): next state
+    """
     # Checking if there is = after < or > (<= or >=) or make sure there is number or variable after < or >
     state = 0
     if((ord(char) == 36) or (ord(char) >= 65 and ord(char) <= 90) or (ord(char) == 95) or (ord(char) >= 97 and ord(char) <= 122)):
@@ -137,6 +218,15 @@ def Expression_state_9(char):
     return state
 
 def Expression_state_10(char):
+    """
+    State 10 of FA Check Expression
+
+    Args:
+        char (char): char of expression
+
+    Returns:
+        state (int): next state
+    """
     # Checking if there is = after = (==)
     state = 0
     if(ord(char) == 61):
@@ -147,6 +237,15 @@ def Expression_state_10(char):
 
 # FA to check if an expression is valid or not
 def CheckExpression(expression):
+    """
+    Function FA to check expression valid or not
+
+    Args:
+        expression (string) : expression
+
+    Returns:
+        boolean : True if expression valid
+    """
     state = 1
     for char in expression:
         if(state == 1):

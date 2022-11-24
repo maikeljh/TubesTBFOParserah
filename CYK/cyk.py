@@ -1,5 +1,12 @@
 # CYK Function
 def CYK(splittedCode, CNF):
+    """
+    Function algorithm of CYK Table Filling
+
+    Args:
+        splittedCode (array): list of terminals of string code
+        CNF (dictionary): dictionary of CNF
+    """
     # Initialize Table For CYK
     Table = [[set([]) for i in range(len(splittedCode))] for j in range(len(splittedCode))]
 
