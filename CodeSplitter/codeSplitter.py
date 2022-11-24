@@ -108,13 +108,13 @@ def Code_splitter(inputFile):
     ketemuhuruf = False
     ketemuhuruf2 = False
     for i3 in range (len(outputfix)):
-        if ((outputfix[idx3]!= '_' and outputfix[idx3] != '$' and outputfix[idx3]!='a' and outputfix[idx3]!='b' and outputfix[idx3]!='c' and outputfix[idx3]!='d' and outputfix[idx3]!='e' and outputfix[idx3]!='f' and outputfix[idx3]!='g' and outputfix[idx3]!='h' and outputfix[idx3]!='i' and outputfix[idx3]!='j' and outputfix[idx3]!='k' and outputfix[idx3]!='l' and outputfix[idx3]!='m' and outputfix[idx3]!='n' and outputfix[idx3]!='n' and outputfix[idx3]!='o' and outputfix[idx3]!='p' and outputfix[idx3]!='q' and outputfix[idx3]!='r' and outputfix[idx3]!='s' and outputfix[idx3]!='t' and outputfix[idx3]!='u' and outputfix[idx3]!='v' and outputfix[idx3]!='w' and outputfix[idx3]!='x' and outputfix[idx3]!='y' and outputfix[idx3]!='z' and outputfix[idx3]!='A' and outputfix[idx3]!='B' and outputfix[idx3]!='C' and outputfix[idx3]!='D' and outputfix[idx3]!='E' and outputfix[idx3]!='F' and outputfix[idx3]!='G' and outputfix[idx3]!='H' and outputfix[idx3]!='I' and outputfix[idx3]!='J' and outputfix[idx3]!='K' and outputfix[idx3]!='L' and outputfix[idx3]!='M' and outputfix[idx3]!='N' and outputfix[idx3]!='O' and outputfix[idx3]!='P' and outputfix[idx3]!='Q' and outputfix[idx3]!='R' and outputfix[idx3]!='S' and outputfix[idx3]!='T' and outputfix[idx3]!='U' and outputfix[idx3]!='V' and outputfix[idx3]!='W' and outputfix[idx3]!='X' and outputfix[idx3]!='Y' and outputfix[idx3]!='Z' and outputfix[idx3]!='0' and outputfix[idx3]!='1' and outputfix[idx3]!='2' and outputfix[idx3]!='3' and outputfix[idx3]!='4' and outputfix[idx3]!='5' and outputfix[idx3]!='6' and outputfix[idx3]!='7' and outputfix[idx3]!='8' and outputfix[idx3]!='9') and ketemuhuruf2 and (outputfix[idx3]=='break' or outputfix[idx3]=='const' or outputfix[idx3]=='case' or outputfix[idx3]=='catch' or outputfix[idx3]=='continue' or outputfix[idx3]=='default' or outputfix[idx3]=='delete' or outputfix[idx3]=='else' or outputfix[idx3]=='false' or outputfix[idx3]=='finally' or outputfix[idx3]=='for' or outputfix[idx3]=='function' or outputfix[idx3]=='if' or outputfix[idx3]=='let' or outputfix[idx3]=='null' or outputfix[idx3]=='return' or outputfix[idx3]=='switch' or outputfix[idx3]=='throw' or outputfix[idx3]=='try' or outputfix[idx3]=='true' or outputfix[idx3]=='var' or outputfix[idx3]=='while' or outputfix[idx3]=='default')):
+        if ((outputfix[idx3]!= '_' and outputfix[idx3] != '\\' and outputfix[idx3] != '$' and outputfix[idx3]!='a' and outputfix[idx3]!='b' and outputfix[idx3]!='c' and outputfix[idx3]!='d' and outputfix[idx3]!='e' and outputfix[idx3]!='f' and outputfix[idx3]!='g' and outputfix[idx3]!='h' and outputfix[idx3]!='i' and outputfix[idx3]!='j' and outputfix[idx3]!='k' and outputfix[idx3]!='l' and outputfix[idx3]!='m' and outputfix[idx3]!='n' and outputfix[idx3]!='n' and outputfix[idx3]!='o' and outputfix[idx3]!='p' and outputfix[idx3]!='q' and outputfix[idx3]!='r' and outputfix[idx3]!='s' and outputfix[idx3]!='t' and outputfix[idx3]!='u' and outputfix[idx3]!='v' and outputfix[idx3]!='w' and outputfix[idx3]!='x' and outputfix[idx3]!='y' and outputfix[idx3]!='z' and outputfix[idx3]!='A' and outputfix[idx3]!='B' and outputfix[idx3]!='C' and outputfix[idx3]!='D' and outputfix[idx3]!='E' and outputfix[idx3]!='F' and outputfix[idx3]!='G' and outputfix[idx3]!='H' and outputfix[idx3]!='I' and outputfix[idx3]!='J' and outputfix[idx3]!='K' and outputfix[idx3]!='L' and outputfix[idx3]!='M' and outputfix[idx3]!='N' and outputfix[idx3]!='O' and outputfix[idx3]!='P' and outputfix[idx3]!='Q' and outputfix[idx3]!='R' and outputfix[idx3]!='S' and outputfix[idx3]!='T' and outputfix[idx3]!='U' and outputfix[idx3]!='V' and outputfix[idx3]!='W' and outputfix[idx3]!='X' and outputfix[idx3]!='Y' and outputfix[idx3]!='Z' and outputfix[idx3]!='0' and outputfix[idx3]!='1' and outputfix[idx3]!='2' and outputfix[idx3]!='3' and outputfix[idx3]!='4' and outputfix[idx3]!='5' and outputfix[idx3]!='6' and outputfix[idx3]!='7' and outputfix[idx3]!='8' and outputfix[idx3]!='9') and ketemuhuruf2 and (outputfix[idx3]=='break' or outputfix[idx3]=='const' or outputfix[idx3]=='case' or outputfix[idx3]=='catch' or outputfix[idx3]=='continue' or outputfix[idx3]=='default' or outputfix[idx3]=='delete' or outputfix[idx3]=='else' or outputfix[idx3]=='false' or outputfix[idx3]=='finally' or outputfix[idx3]=='for' or outputfix[idx3]=='function' or outputfix[idx3]=='if' or outputfix[idx3]=='let' or outputfix[idx3]=='null' or outputfix[idx3]=='return' or outputfix[idx3]=='switch' or outputfix[idx3]=='throw' or outputfix[idx3]=='try' or outputfix[idx3]=='true' or outputfix[idx3]=='var' or outputfix[idx3]=='while' or outputfix[idx3]=='default')):
             outputfix.pop(idx3-1)
             i3+=1
             idx3 -=1
             ketemuhuruf2 = False
             ketemuhuruf = True
-        elif((outputfix[idx3]!= '_'  and outputfix[idx3] != '$' and outputfix[idx3]!='a' and outputfix[idx3]!='b' and outputfix[idx3]!='c' and outputfix[idx3]!='d' and outputfix[idx3]!='e' and outputfix[idx3]!='f' and outputfix[idx3]!='g' and outputfix[idx3]!='h' and outputfix[idx3]!='i' and outputfix[idx3]!='j' and outputfix[idx3]!='k' and outputfix[idx3]!='l' and outputfix[idx3]!='m' and outputfix[idx3]!='n' and outputfix[idx3]!='n' and outputfix[idx3]!='o' and outputfix[idx3]!='p' and outputfix[idx3]!='q' and outputfix[idx3]!='r' and outputfix[idx3]!='s' and outputfix[idx3]!='t' and outputfix[idx3]!='u' and outputfix[idx3]!='v' and outputfix[idx3]!='w' and outputfix[idx3]!='x' and outputfix[idx3]!='y' and outputfix[idx3]!='z' and outputfix[idx3]!='A' and outputfix[idx3]!='B' and outputfix[idx3]!='C' and outputfix[idx3]!='D' and outputfix[idx3]!='E' and outputfix[idx3]!='F' and outputfix[idx3]!='G' and outputfix[idx3]!='H' and outputfix[idx3]!='I' and outputfix[idx3]!='J' and outputfix[idx3]!='K' and outputfix[idx3]!='L' and outputfix[idx3]!='M' and outputfix[idx3]!='N' and outputfix[idx3]!='O' and outputfix[idx3]!='P' and outputfix[idx3]!='Q' and outputfix[idx3]!='R' and outputfix[idx3]!='S' and outputfix[idx3]!='T' and outputfix[idx3]!='U' and outputfix[idx3]!='V' and outputfix[idx3]!='W' and outputfix[idx3]!='X' and outputfix[idx3]!='Y' and outputfix[idx3]!='Z' and outputfix[idx3]!='0' and outputfix[idx3]!='1' and outputfix[idx3]!='2' and outputfix[idx3]!='3' and outputfix[idx3]!='4' and outputfix[idx3]!='5' and outputfix[idx3]!='6' and outputfix[idx3]!='7' and outputfix[idx3]!='8' and outputfix[idx3]!='9') and ketemuhuruf2) :
+        elif((outputfix[idx3]!= '_' and outputfix[idx3] != '\\' and outputfix[idx3] != '$' and outputfix[idx3]!='a' and outputfix[idx3]!='b' and outputfix[idx3]!='c' and outputfix[idx3]!='d' and outputfix[idx3]!='e' and outputfix[idx3]!='f' and outputfix[idx3]!='g' and outputfix[idx3]!='h' and outputfix[idx3]!='i' and outputfix[idx3]!='j' and outputfix[idx3]!='k' and outputfix[idx3]!='l' and outputfix[idx3]!='m' and outputfix[idx3]!='n' and outputfix[idx3]!='n' and outputfix[idx3]!='o' and outputfix[idx3]!='p' and outputfix[idx3]!='q' and outputfix[idx3]!='r' and outputfix[idx3]!='s' and outputfix[idx3]!='t' and outputfix[idx3]!='u' and outputfix[idx3]!='v' and outputfix[idx3]!='w' and outputfix[idx3]!='x' and outputfix[idx3]!='y' and outputfix[idx3]!='z' and outputfix[idx3]!='A' and outputfix[idx3]!='B' and outputfix[idx3]!='C' and outputfix[idx3]!='D' and outputfix[idx3]!='E' and outputfix[idx3]!='F' and outputfix[idx3]!='G' and outputfix[idx3]!='H' and outputfix[idx3]!='I' and outputfix[idx3]!='J' and outputfix[idx3]!='K' and outputfix[idx3]!='L' and outputfix[idx3]!='M' and outputfix[idx3]!='N' and outputfix[idx3]!='O' and outputfix[idx3]!='P' and outputfix[idx3]!='Q' and outputfix[idx3]!='R' and outputfix[idx3]!='S' and outputfix[idx3]!='T' and outputfix[idx3]!='U' and outputfix[idx3]!='V' and outputfix[idx3]!='W' and outputfix[idx3]!='X' and outputfix[idx3]!='Y' and outputfix[idx3]!='Z' and outputfix[idx3]!='0' and outputfix[idx3]!='1' and outputfix[idx3]!='2' and outputfix[idx3]!='3' and outputfix[idx3]!='4' and outputfix[idx3]!='5' and outputfix[idx3]!='6' and outputfix[idx3]!='7' and outputfix[idx3]!='8' and outputfix[idx3]!='9') and ketemuhuruf2) :
             outputfix.pop(idx3-1)
             i3+=1
             idx3 -=1
@@ -248,47 +248,74 @@ def Code_splitter(inputFile):
             belombelom = False
         idx +=1
     
+    resultbeneranbanget2 = []
+    cek1 = False
+    for i in range (len(resultbeneranbanget)):
+        if (resultbeneranbanget[i]=='\\' and not cek1):
+            temp = resultbeneranbanget[i]
+            cek1 = True
+        elif (cek1 and resultbeneranbanget=='\\'):
+            resultbeneranbanget2.append(temp + resultbeneranbanget[i])
+            cek1 = False
+        else :
+            resultbeneranbanget2.append(resultbeneranbanget[i])
+            cek1 = False
+            
     idx = 0
     belombelom = False
-    for i in range(len(resultbeneranbanget)):
-        if ( resultbeneranbanget[idx]==' ' and not belombelom):
+    for i in range(len(resultbeneranbanget2)):
+        if ( resultbeneranbanget2[idx]==' ' and not belombelom):
             belombelom = True
-        elif(belombelom and (resultbeneranbanget[idx]=='"' or resultbeneranbanget[idx]=="'" or resultbeneranbanget[idx]=='`')):
-            resultbeneranbanget.pop(idx-1)
+        elif(belombelom and (resultbeneranbanget2[idx]=='"' or resultbeneranbanget2[idx]=="'" or resultbeneranbanget2[idx]=='`')):
+            resultbeneranbanget2.pop(idx-1)
             i+=1
             idx -=1
             belombelom = False
         else :
             belombelom = False
         idx +=1
+            
+    idx = 0
+    belombelom2 = False
+    for i in range(len(resultbeneranbanget2)):
+        if ( (resultbeneranbanget2[idx]=='"' or resultbeneranbanget2[idx]=="'" or resultbeneranbanget2[idx]=='`') and not belombelom2):
+            belombelom2 = True
+        elif(belombelom2 and (resultbeneranbanget2[idx]==' ')):
+            resultbeneranbanget2.pop(idx)
+            i+=1
+            idx -=1
+            belombelom2 = False
+        else :
+            belombelom2 = False
+        idx +=1
     
     ketemumulti1 = False
     pernah = 0
-    for i in range (len(resultbeneranbanget)):
-        if (resultbeneranbanget[i] == '/*' and not ketemumulti1):
+    for i in range (len(resultbeneranbanget2)):
+        if (resultbeneranbanget2[i] == '/*' and not ketemumulti1):
             ketemumulti1 = True
-        elif (resultbeneranbanget[i] == '*/' and ketemumulti1):
+        elif (resultbeneranbanget2[i] == '*/' and ketemumulti1):
             ketemumulti1 = False
             pernah +=1
 
     resultbeneranbangetbanget = []
     idx = 0
     booleanpembantu = False
-    for i in range (len(resultbeneranbanget)):
-        if(resultbeneranbanget[i]=='/*' and not booleanpembantu and pernah>0):
+    for i in range (len(resultbeneranbanget2)):
+        if(resultbeneranbanget2[i]=='/*' and not booleanpembantu and pernah>0):
             booleanpembantu = True
-        elif (resultbeneranbanget[i]=='/*' and not booleanpembantu and pernah==0):
+        elif (resultbeneranbanget2[i]=='/*' and not booleanpembantu and pernah==0):
             booleanpembantu = True
-            resultbeneranbangetbanget.append(resultbeneranbanget[i])
+            resultbeneranbangetbanget.append(resultbeneranbanget2[i])
         elif (not booleanpembantu and pernah>0):
-            resultbeneranbangetbanget.append(resultbeneranbanget[i])
-        elif(resultbeneranbanget[i]=='*/' and booleanpembantu and pernah>0):
+            resultbeneranbangetbanget.append(resultbeneranbanget2[i])
+        elif(resultbeneranbanget2[i]=='*/' and booleanpembantu and pernah>0):
             booleanpembantu = False
             pernah -=1
-        elif (resultbeneranbanget[i]!='/*' and not booleanpembantu):
-            resultbeneranbangetbanget.append(resultbeneranbanget[i])
+        elif (resultbeneranbanget2[i]!='/*' and not booleanpembantu):
+            resultbeneranbangetbanget.append(resultbeneranbanget2[i])
         elif (pernah==0 and booleanpembantu):
-            resultbeneranbangetbanget.append(resultbeneranbanget[i])
+            resultbeneranbangetbanget.append(resultbeneranbanget2[i])
 
     for i in range (len(resultbeneranbangetbanget)):
         if ((i==(len(resultbeneranbangetbanget)-1)) and (resultbeneranbangetbanget[i] == " ")):
