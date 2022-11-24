@@ -23,7 +23,18 @@ for i in range(1,10):
                 newJar = chr(65 + k) + str(i) + str(j) + str(l)
                 variablesJar.append(newJar)
         
-def ReadGrammer(relativePath):
+def ReadGrammar(relativePath):
+    """
+    Function to read grammar from CFG.txt
+
+    Args:
+        relativePath (string): relative path to txt
+
+    Returns:
+        terminals (array): list of terminals
+        variables (array): list of variables
+        productions (array): list of productions
+    """
     try:
         path = os.path.abspath(relativePath)
         file = open(path, encoding="utf8").read()
@@ -54,10 +65,28 @@ def ReadGrammer(relativePath):
         return [], [], []
 
 def IsEpsilonProd(body):
+    """
+    Function that returns true if a production derivatives epsilon
 
+    Args:
+        body (list): list of production
+
+    Returns:
+        boolean : true if a production derivatives epsilon
+    """
     return ((len(body) == 1 and body[0] == '') or len(body) == 0)
 
 def IsEpsilonVar(currentVar, prodsDict, variables):
+    """
+    Function that returns true if a variables derivatives epsilon
+    Args:
+        currentVar (string): variable
+        prodsDict (dictionary): dictionary of productions
+        variables (array): list of variables
+
+    Returns:
+        boolean : true if a variable derivatives epsilon
+    """
     if (not(currentVar in variables) or not(currentVar in prodsDict.keys())):
         return False
 
@@ -66,7 +95,18 @@ def IsEpsilonVar(currentVar, prodsDict, variables):
     return(len(prods) == 1 and IsEpsilonProd(prods[0]))
 
 def IsNullable(currentVar, prodsDict, variables, processedVar):
+    """
+    Function that return true if a variable is nullable
 
+    Args:
+        currentVar (string): variable
+        prodsDict (dictionary): dictionary of production
+        variables (string): list of variables
+        processedVar (array): list of processed variables 
+
+    Returns:
+        boolean : true if a variable is nullable
+    """
     if (currentVar in processedVar):
         return False
 
@@ -126,7 +166,17 @@ def IsNullable(currentVar, prodsDict, variables, processedVar):
     return finalResult
 
 def GenerateFromNullable(body, prodsDict, variables):
-    
+    """
+    Generate New Production From Eliminating Epsilon
+
+    Args:
+        body (array): production
+        prodsDict (dictionary): dictionary of productions
+        variables (array): list of variables
+
+    Returns:
+        newBodies (array) : new production
+    """
     newBodies = []
     
     if (len(body) == 0):
@@ -137,7 +187,6 @@ def GenerateFromNullable(body, prodsDict, variables):
     if(len(body) > 1):
         newSubBodies = GenerateFromNullable(body[1:], prodsDict, variables)
         
-    
         for newBody in newSubBodies:
             newBodies.append([symbol] + newBody)
 
@@ -153,6 +202,16 @@ def GenerateFromNullable(body, prodsDict, variables):
     return newBodies
 
 def EliminateEpsilon(productions, variables):
+    """
+    Eliminate Epsilon Production
+
+    Args:
+        productions (array): list of productions
+        variables (array): list of variables
+
+    Returns:
+        newProds (array) : new production
+    """
     prodsDict = ConvertToDict(productions)
     newProds = list.copy(productions)
 
@@ -172,15 +231,43 @@ def EliminateEpsilon(productions, variables):
     return newProds
 
 def updateVariable(newProduction, variables):
+    """
+    Remove Variables that has no productions
+
+    Args:
+        newProduction (array): array of productions
+        variables (array): list of variables
+    """
     for var in variables:
         if (len([(x,y) for (x,y) in newProduction if x == var]) == 0):
             variables.remove(var)
 
 def IsUnitBody(body, variables):
+    """
+    Function that returns true if a production derivatives one variable
+
+    Args:
+        body (array): production
+        variables (array): list of variables
+
+    Returns:
+        boolean : true if production derivatives one variable only
+    """
     return (len(body) == 1 and (body[0] in variables))
 
 def IsUnitPairs(currentPair, prodsDict, variables, processedPair):
+    """
+    Function that returns true if currentPair in unitPairs
 
+    Args:
+        currentPair (set): production
+        prodsDict (dictionary): dictionary of productions
+        variables (array): list of variable
+        processedPair (array): list of proccesed pair
+
+    Returns:
+        boolean : true if currentPair in unitPairs
+    """
     if (currentPair in processedPair):
         return False
 
@@ -211,6 +298,16 @@ def IsUnitPairs(currentPair, prodsDict, variables, processedPair):
     return finalResult
 
 def EliminateUnit(productions, variables):
+    """
+    Function to eliminate unit productions
+
+    Args:
+        productions (array): list of productions
+        variables (array): list of variables
+
+    Returns:
+        newProds (array) : list of new productions
+    """
     prodsDict = ConvertToDict(productions)
     newProds = []
 
@@ -224,6 +321,17 @@ def EliminateUnit(productions, variables):
     return newProds
 
 def isDerivateTerminal(production, variables, productions):
+    """
+    Function that returns true if a variable derivatives one terminal
+
+    Args:
+        production (array): production
+        variables (array): list of variables
+        productions (array): list of productions
+
+    Returns:
+        boolean : True if a variable derivatives one terminal
+    """
     for product in productions:
         if(product[0] == production):
             for item in product[1]:
@@ -234,6 +342,16 @@ def isDerivateTerminal(production, variables, productions):
 
 
 def eliminateUselessVariable(productions, variables):
+    """
+    Function to eliminate useless variable
+
+    Args:
+        productions (array): list of productions
+        variables (array): list of variables
+
+    Returns:
+        newProds (array) : list of new productions
+    """
     nonUselessVariables = []
     tempProds = []
     newProds = []
@@ -270,6 +388,15 @@ def eliminateUselessVariable(productions, variables):
     return newProds
 
 def ConvertToDict (productions):
+    """
+    Function to convert list of productions to dictionary
+
+    Args:
+        productions (array): list of productions
+
+    Returns:
+        dictionary (dict): dictionary of productions
+    """
     dictionary = {}
     for production in productions :
         if(production[0] in dictionary.keys()):
@@ -281,6 +408,17 @@ def ConvertToDict (productions):
 
 
 def ConvertToCNF(productions, variables, terminals):
+    """
+    Function to convert CFG to CNF
+    
+    Args:
+        productions (array): list of productions
+        variables (array): list of variables
+        terminals (array): list of terminals
+
+    Returns:
+        result (array): list of new productions
+    """
     newProds = []
 
     dictionary = {}
@@ -347,7 +485,13 @@ def IsGrammarValid(variables, productions):
     return isValid
 
 def convertCFGtoCNF():
-    terminals, variables, productions = ReadGrammer("./CFG/CFG.txt")
+    """
+    Main Function converting CFG to CNF
+
+    Returns:
+        productionsFix (dictionary) : dictionary of CNF
+    """
+    terminals, variables, productions = ReadGrammar("./CFG/CFG.txt")
     for nonTerminals in variables :
         if nonTerminals in variablesJar:
             variablesJar.remove(nonTerminals)
