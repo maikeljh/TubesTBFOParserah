@@ -53,7 +53,6 @@ Pada tugas besar ini, implementasikan parser untuk JavaScript (Node.js) untuk be
 |   ├───testExpValid.js
 |   ├───testVarNotValid.js
 |   ├───testVarValid.js
-|   ├───TEST.txt
 |   ├───TEST1.txt
 |   ├───TEST2.txt
 |   ├───TEST3.txt
