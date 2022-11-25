@@ -262,6 +262,8 @@ def Code_splitter(inputFile):
             i+=1
             idx -=1
             belombelom = False
+        elif(belombelom and resultbeneranbanget[idx]=='='):
+            belombelom = True
         else :
             belombelom = False
         idx +=1
