@@ -98,7 +98,13 @@ def Code_splitter(inputFile):
             i2+=1
             idx2 -=1
         idx2+=1
-    #print(output)
+    for i in range (len(output)):
+        if(output[idx]=='\t'):
+            output.pop(idx)
+            i+=1
+            idx-=1
+        idx+=1    
+    idx=0
     for i in range (len(output)) :
         if (output[idx] == ' ' and spasi1):
             output.pop(idx)
@@ -397,7 +403,7 @@ def Code_splitter(inputFile):
         elif (resultbeneranbanget2[i] == '*/' and ketemumulti1):
             ketemumulti1 = False
             pernah +=1
-
+    
     resultbeneranbangetbanget = []
     idx = 0
     booleanpembantu = False
