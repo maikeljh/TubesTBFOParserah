@@ -315,13 +315,13 @@ def Code_splitter(inputFile):
             i+=1
             idx -=1
             belombelom = False
-            ketemukutipb = False
+            ketemukutipb = True
         elif(belombelom and not ketemukutipc and (resultbeneranbanget2[idx]=='`')):
             resultbeneranbanget2.pop(idx-1)
             i+=1
             idx -=1
             belombelom = False
-            ketemukutipc = False
+            ketemukutipc = True
         else :
             belombelom = False
         idx +=1

@@ -1,12 +1,8 @@
-const x = 4, y = function(g, h){};
+// program to create a multiline strings
 
-function
+// using the + operator
+const message = 'This is a long message\n' + 
+    'that spans across multiple lines\n' + 
+    'in the code.';
 
-try{
-    b
-}
-
-catch(e)
-{
-    console.log(e)
-}
+console.log(message);

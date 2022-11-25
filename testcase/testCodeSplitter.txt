@@ -1,13 +1,8 @@
-// program to create JavaScript object using object literal
-const person = {
-    name: "John",
-    age: 20,
-    hobbies: ["reading", "games", "coding"],
-    greet: function () {
-      console.log("Hello everyone.");
-    },
-    score: {
-      maths: 90,
-      science: 80,
-    },
-  };
+// program to create a multiline strings
+
+// using the + operator
+const message = 'This is a long message\n' + 
+    'that spans across multiple lines\n' + 
+    'in the code.';
+
+console.log(message);
