@@ -1,4 +1,6 @@
-function a ([a,r,t,,,,], {[4,5] : g, a : u = 7,}, f = 4, f)
-{
-
-}
+// program to create JavaScript object using object literal
+const person = {
+    greet: function (x) {
+      console.log("a");
+    },
+  };
