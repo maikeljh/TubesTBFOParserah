@@ -1,8 +1,16 @@
-// program to create a multiline strings
-
-// using the + operator
-const message = 'This is a long message\n' + 
-    'that spans across multiple lines\n' + 
-    'in the code.';
-
-console.log(message);
+function do_something(x) {
+  /* This is a sample multiline comment
+  if (x == 0) {
+    return 0;
+  } else if x + 4 == 1 {
+    if (true) {
+      return 3;
+    } else {
+      return 2;
+    }*/
+  } else if (x == 32) {
+    return 4;
+  } else {
+    return "Momen";
+  }
+}

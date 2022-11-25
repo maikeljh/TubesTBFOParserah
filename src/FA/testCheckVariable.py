@@ -1,8 +1,8 @@
 from checkVariable import *
 
 # Open file javascript
-txt = open("./testcase/testVarValid.txt", "r")
-# txt = open("./testcase/testVarNotValid.txt", "r")
+txt = open("../testcase/testVarValid.txt", "r")
+# txt = open("../testcase/testVarNotValid.txt", "r")
 
 # Read variable name
 variable_name = txt.read()
