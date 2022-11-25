@@ -10,4 +10,4 @@ const person = {
       maths: 90,
       science: 80,
     },
-  };
+};
