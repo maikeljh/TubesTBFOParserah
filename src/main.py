@@ -27,7 +27,7 @@ while(file != "EXIT"):
     if (not(".js" in file)):
         file += ".js"
     try:
-        output = cs.Code_splitter("./testcase/" + file)
+        output = cs.Code_splitter("../testcase/" + file)
         print("\nParsing...\n")
         cyk.CYK(output, CNF)
     except:
