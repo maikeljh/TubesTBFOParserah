@@ -61,7 +61,9 @@ Pada tugas besar ini, implementasikan parser untuk JavaScript (Node.js) untuk be
 - Clone or download the repository
     > 
         git clone https://github.com/maikeljh/TubesTBFOParserah.git
-- Run main.py file inside src<br><br>
+- Run main.py file inside src
+- Put your javascript file inside folder testcase
+- Type your javascript filename in program
 
 ## Screenshots
 ### User Interface
