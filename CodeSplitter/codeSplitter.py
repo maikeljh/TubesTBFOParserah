@@ -87,17 +87,18 @@ def Code_splitter(inputFile):
     output = ''.join(output)
     #ini misahin spasi
     output = re.split('(\s)', output)
-    #print(output)
     output = list(output)
     spasi1 = False
     idx = 0
     idx2 = 0
+    #ilangin blank (bukan spasi)
     for i2 in range (len(output)) :
         if (output[idx2] == '') :
             output.pop(idx2)
             i2+=1
             idx2 -=1
         idx2+=1
+    #ilangin \t 
     for i in range (len(output)):
         if(output[idx]=='\t'):
             output.pop(idx)
@@ -105,6 +106,7 @@ def Code_splitter(inputFile):
             idx-=1
         idx+=1    
     idx=0
+    #jadiin banyak spasi menjadi 1 spasi saja
     for i in range (len(output)) :
         if (output[idx] == ' ' and spasi1):
             output.pop(idx)
@@ -115,6 +117,7 @@ def Code_splitter(inputFile):
         else :
             spasi1 = False
         idx +=1
+    #split char,huruf, operator, statement
     for isi_output in  output:
         hasil_output0 = re.split('([][])', isi_output)
         for isi_hasil_output0 in hasil_output0:
@@ -129,7 +132,7 @@ def Code_splitter(inputFile):
                     isi_hasil_output2 = isi_hasil_output1
                     if (isi_hasil_output2 !=''):
                             outputfix.append(isi_hasil_output2)
-    # menghapus spasi antara any dengan selain huruf angka
+    # menghapus spasi antara huruf angka statement + beberapa char dengan selain huruf angka statement
     idx3 = 0
     ketemuhuruf = False
     ketemuhuruf2 = False
@@ -155,7 +158,7 @@ def Code_splitter(inputFile):
             ketemuhuruf2 = False
             ketemuhuruf = False
         idx3 +=1
-    # menghapus spasi antara selain huruf angka dengan huruf angka
+    # menghapus spasi antara selain huruf angka + beberapa char dengan huruf angka + beberapa char
     idx4 = 0
     ketemuhurufa = False
     ketemuhurufb = False
@@ -176,6 +179,7 @@ def Code_splitter(inputFile):
             ketemuhurufa = False
         idx4 +=1
 
+    #menggabungkan /* dan */ 
     result = []
     check1 = False
     check2 = False
@@ -208,6 +212,8 @@ def Code_splitter(inputFile):
             result.append(outputfix[i])
             check1 = False
             check2 = False
+
+    #menghilangkan spasi sebelum + atau - sesuai dengan char tertentu
     resultbeneran = []
     fase1 = False
     fase2 = False
@@ -230,6 +236,8 @@ def Code_splitter(inputFile):
             fase2 = False
             fase1 = False
             resultbeneran.append(result[i5])
+    
+    # delete spasi dalem multiline comment
     result = []
     check = False
     for i in range(len(resultbeneran)):
@@ -241,6 +249,7 @@ def Code_splitter(inputFile):
             check = False
         result.append(resultbeneran[i])
 
+    #menggabungkan \" atau \' atau \`
     resultbeneranbanget = []
     belom = False
     for i in range (len(result)):
@@ -258,6 +267,7 @@ def Code_splitter(inputFile):
             resultbeneranbanget.append(result[i])
             belom = False
 
+    #delete spasi setelah = kalau bukan berderet =
     idx = 0
     belombelom = False
     for i in range(len(resultbeneranbanget)):
@@ -273,6 +283,8 @@ def Code_splitter(inputFile):
         else :
             belombelom = False
         idx +=1
+    
+    #Menggabungkan \\
     resultbeneranbanget2 = []
     cek1 = False
     for i in range (len(resultbeneranbanget)):
@@ -290,6 +302,7 @@ def Code_splitter(inputFile):
             resultbeneranbanget2.append(resultbeneranbanget[i])
             cek1 = False
 
+    #Menghapus spasi sebelum " atau ' atau ` jika tidak dalam string
     idx = 0
     belombelom = False
     ketemukutipa = False
@@ -332,6 +345,7 @@ def Code_splitter(inputFile):
             belombelom = False
         idx +=1
     
+    #Menghapus spasi sebelum {} atau ( atau [ jika tidak dalam string
     idx = 0
     belombelombelom = False
     ketemukurunga = False
@@ -368,6 +382,7 @@ def Code_splitter(inputFile):
             belombelombelom = False
         idx +=1
 
+    #Menghapus spasi setelah " atau ' atau `
     idx = 0
     belombelom2 = False
     for i in range(len(resultbeneranbanget2)):
@@ -382,7 +397,7 @@ def Code_splitter(inputFile):
             belombelom2 = False
         idx +=1
     
-
+    #menghapus spasi setelah [ atau { atau (
     ketemukurungbuka = False
     idx = 0
     for i in range (len(resultbeneranbanget2)):
@@ -395,6 +410,7 @@ def Code_splitter(inputFile):
             ketemukurungbuka = False
         idx +=1
 
+    #mencari apakah multiline ditutup
     ketemumulti1 = False
     pernah = 0
     for i in range (len(resultbeneranbanget2)):
@@ -404,6 +420,7 @@ def Code_splitter(inputFile):
             ketemumulti1 = False
             pernah +=1
     
+    #menghapus semua multiline comment jika ditutup
     resultbeneranbangetbanget = []
     idx = 0
     booleanpembantu = False
@@ -423,6 +440,7 @@ def Code_splitter(inputFile):
         elif (pernah==0 and booleanpembantu):
             resultbeneranbangetbanget.append(resultbeneranbanget2[i])
 
+    #menghapus jika ada spasi di paling akhir
     for i in range (len(resultbeneranbangetbanget)):
         if ((i==(len(resultbeneranbangetbanget)-1)) and (resultbeneranbangetbanget[i] == " ")):
             resultbeneranbangetbanget.pop(i)

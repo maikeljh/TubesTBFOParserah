@@ -1,4 +1,1 @@
-check = true;
-if (check) {
-	break;
-}
+String = "   h a   l o "  
