@@ -35,8 +35,8 @@ Pada tugas besar ini, implementasikan parser untuk JavaScript (Node.js) untuk be
 |       ├───tesCheckVariable.py
 |       ├───tesCheckExpression.py
 │       └───checkVariable.py
-├───docs
-│   └───Laporan.pdf
+├───doc
+│   └───LaporanTugasBesarTBFO_Parserah.pdf
 ├───testcase
 |   ├───inputAcc.js
 |   ├───inputReject.js
