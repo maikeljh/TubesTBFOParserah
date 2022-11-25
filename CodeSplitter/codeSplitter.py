@@ -296,12 +296,18 @@ def Code_splitter(inputFile):
             ketemukutipc = True
         elif ( resultbeneranbanget2[idx]==' ' and not belombelom):
             belombelom = True
+        elif(ketemukutipa and (resultbeneranbanget2[idx]=='"')):
+            ketemukutipa = False
+        elif(ketemukutipb and (resultbeneranbanget2[idx]=="'")):
+            ketemukutipb = False
+        elif(ketemukutipc and (resultbeneranbanget2[idx]=='`')):
+            ketemukutipc = False
         elif(belombelom and not ketemukutipa and (resultbeneranbanget2[idx]=='"')):
             resultbeneranbanget2.pop(idx-1)
             i+=1
             idx -=1
             belombelom = False
-            ketemukutipa = False
+            ketemukutipa = True
         elif(belombelom and not ketemukutipb and (resultbeneranbanget2[idx]=="'")):
             resultbeneranbanget2.pop(idx-1)
             i+=1
