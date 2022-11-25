@@ -1,6 +1,12 @@
-// program to create JavaScript object using object literal
-const person = {
-    greet: function (x) {
-      console.log("a");
-    },
-  };
+const x = 4, y = function(g, h){};
+
+function
+
+try{
+    b
+}
+
+catch(e)
+{
+    console.log(e)
+}
