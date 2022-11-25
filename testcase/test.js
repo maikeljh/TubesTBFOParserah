@@ -1,8 +1,16 @@
-// program to create a multiline strings
-
-// using the + operator
-const message = 'This is a long message\n' + 
-    'that spans across multiple lines\n' + 
-    'in the code.';
-
-console.log(message);
+function a() {
+  for (const i = 5; i < 9; i++) {
+    try {
+      break;
+    } catch (e) {
+      if (false) {
+        return;
+        break;
+      }
+    } finally {
+      while (false) {
+        continue;
+      }
+    }
+  }
+}
