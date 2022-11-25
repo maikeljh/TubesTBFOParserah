@@ -376,6 +376,19 @@ def Code_splitter(inputFile):
             belombelom2 = False
         idx +=1
     
+
+    ketemukurungbuka = False
+    idx = 0
+    for i in range (len(resultbeneranbanget2)):
+        if ((resultbeneranbanget2[idx] == '[' or resultbeneranbanget2[idx] == '{' or resultbeneranbanget2[idx] == '(' )and not ketemukurungbuka):
+            ketemukurungbuka = True
+        elif (resultbeneranbanget2[idx] == ' ' and ketemukurungbuka):
+            resultbeneranbanget2.pop(idx)
+            i+=1
+            idx -=1
+            ketemukurungbuka = False
+        idx +=1
+
     ketemumulti1 = False
     pernah = 0
     for i in range (len(resultbeneranbanget2)):

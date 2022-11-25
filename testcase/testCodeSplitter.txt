@@ -1,1 +1,1 @@
-{}    =    =     null;
+const nama = [       a, b, c ];
